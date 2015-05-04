@@ -27,7 +27,7 @@
 
  	project : {
 		name : 'Celox Inpes',
-		version : '1.0.0',
+		version : '1.1.0',
 		author : 'Aureoline Tetrahedron',
 
     app : {
@@ -52,7 +52,8 @@
 
     files : {
       config : 'config.json',
-      assets : 'assets/'
+      assets : 'assets/',
+      index : { path:'custom_index.html => index.html', template:'project', not_listed:true }
     }
   }
 }

@@ -43,11 +43,12 @@ class Enemy extends BaseEntity {
 		this.velocity.x = 0;
 		this.velocity.y = C.enemy_speed;
 
-		newRotateSpd();
+		newSpeed();
 	}
 
-	public function newRotateSpd(){
+	public function newSpeed(){
 		rotateSpd = Luxe.utils.random.float(-C.enemy_rotateSpd_var, C.enemy_rotateSpd_var);
+		this.velocity.y = C.enemy_speed + Luxe.utils.random.float(-C.enemy_speed_var, C.enemy_speed_var);
 	}
 
 	override function update(dt: Float){

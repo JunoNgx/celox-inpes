@@ -44,8 +44,8 @@ class Play extends State {
 
 	override public function onenter<T> (_:T) {
 
-		// UI
-		Luxe.camera.size = new Vector(Luxe.screen.w, Luxe.screen.h);
+		// // UI
+		// Luxe.camera.size = new Vector(Luxe.screen.w, Luxe.screen.h);
 
 		scoreText = new Text({
 			// immediate: true,
@@ -229,7 +229,7 @@ class Play extends State {
 
 		for (i in 0...pool_enemy.length) {
 			var enemy = pool_enemy.get();
-			enemy.newRotateSpd();
+			enemy.newSpeed();
 			enemy.pos = new Vector(
 				Luxe.utils.random.float(0, Luxe.screen.w),
 				Luxe.utils.random.float(C.spawn_area1, C.spawn_area2)

@@ -81,6 +81,10 @@ class Player extends BaseEntity {
 		this.pos = Luxe.camera.screen_point_to_world(e.pos);
 	} // on mouse move
 
+	override public function ontouchmove(e: TouchEvent) {
+		this.pos = Luxe.camera.screen_point_to_world(e.pos);
+	} // on touch move
+
 	public function onrender() {
 		Luxe.draw.ngon({
 			immediate: true,

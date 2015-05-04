@@ -6,6 +6,7 @@ import states.Splash;
 import states.Title;
 
 import phoenix.Color;
+import luxe.Screen.WindowEvent;
 
 class Main extends luxe.Game {
 
@@ -13,15 +14,23 @@ class Main extends luxe.Game {
 
 	public static var state: States;
 
-	override function config(config:luxe.AppConfig):luxe.AppConfig {
+	override function config(config:luxe.AppConfig) {
 
 		// Preloading textures, optional
 		config.preload.textures = [
 			{id: 'assets/logo_box.png'}
 		];
 
-		return config;
+        // #if web
+        // config.window.fullscreen = false;
+        // #end
+
+        return config;
 	}
+
+	override function onwindowsized( e:WindowEvent ) {
+        Luxe.camera.viewport = new luxe.Rectangle( 0, 0, e.event.x, e.event.y);
+    }
 
 	override function ready() {
 
