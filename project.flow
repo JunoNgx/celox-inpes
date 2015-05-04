@@ -27,7 +27,7 @@
 
  	project : {
 		name : 'Celox Inpes',
-		version : '0.0.1',
+		version : '1.0.0',
 		author : 'Aureoline Tetrahedron',
 
     app : {

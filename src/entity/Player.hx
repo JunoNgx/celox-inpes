@@ -131,8 +131,13 @@ class Player extends BaseEntity {
 		// });
 	}
 
-	override public function kill() {
-		super.kill();
+	override public function hit() {
+		super.hit();
 		Luxe.events.fire('die!');
+
+		Luxe.events.fire('explosion', {
+			x: this.pos.x,
+			y: this.pos.y,
+		});
 	}
 }

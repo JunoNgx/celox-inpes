@@ -18,7 +18,7 @@ class BaseEntity extends Sprite {
 		super(options);
 
 		this.events.listen('hit', function(e){
-			this.kill();
+			this.hit();
 		});
 	}
 
@@ -27,6 +27,10 @@ class BaseEntity extends Sprite {
 		this.collider.shape.y = pos.y;
 
 		this.collider.shape.rotation = rotation_z;
+	}
+
+	public function hit() {
+		kill();
 	}
 
 	public function kill() {

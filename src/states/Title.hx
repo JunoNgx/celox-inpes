@@ -48,6 +48,7 @@ class Title extends State {
 			point_size: 20,
 			// font: font,
 			align: center,
+			color: new Color(0.2, 0.2, 0.2, 0.17),
 		});
 
 		toprightText = new Text({

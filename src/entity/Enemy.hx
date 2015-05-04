@@ -10,6 +10,7 @@ import component.Velocity;
 import component.Collider;
 import component.Seeker;
 
+import states.Play;
 import C;
 
 class Enemy extends BaseEntity {
@@ -55,7 +56,7 @@ class Enemy extends BaseEntity {
 
 		alignShape();
 
-		if (this.pos.y > Luxe.screen.w + 200) kill();
+		if (this.pos.y > Luxe.screen.w + 300) kill();
 
 		if (isAlive()) onrender();
 	}
@@ -100,6 +101,17 @@ class Enemy extends BaseEntity {
 			// color: new Color().rgb(0x00B9D7),
 			// color: new Color().rgb(0x3E7ED9),
 			depth: -0.1,
+		});
+	}
+
+	override public function hit() {
+		super.hit();
+
+		// Play.expSys.pos = this.pos;
+		// Play.expSys.start(C.exp_time);
+		Luxe.events.fire('explosion', {
+			x: this.pos.x,
+			y: this.pos.y,
 		});
 	}
 

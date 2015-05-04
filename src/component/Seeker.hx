@@ -38,19 +38,21 @@ class Seeker extends Component {
 	}
 
 	public function fire() {
-		var missile = Play.pool_missile.get( );
-		missile.pos = new Vector(entity.pos.x, entity.pos.y);
-		missile.rotation_z = Luxe.utils.random.float(0,360);
+		if (entity.active) {
+			var missile = Play.pool_missile.get( );
+			missile.pos = new Vector(entity.pos.x, entity.pos.y);
+			missile.rotation_z = Luxe.utils.random.float(0,360);
 
-		var angle = Math.atan2(
-			targetPos.y - this.pos.y,
-			targetPos.x - this.pos.x
-			);
+			var angle = Math.atan2(
+				targetPos.y - this.pos.y,
+				targetPos.x - this.pos.x
+				);
 
-		missile.velocity.x = C.missile_speed * Math.cos(angle);
-		missile.velocity.y = C.missile_speed * Math.sin(angle);
+			missile.velocity.x = C.missile_speed * Math.cos(angle);
+			missile.velocity.y = C.missile_speed * Math.sin(angle);
 
-		missile.revive( );
+			missile.revive( );
+		}
 	}
 
 }

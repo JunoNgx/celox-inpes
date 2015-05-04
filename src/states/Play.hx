@@ -32,8 +32,8 @@ class Play extends State {
 	public static var pool_enemy: Pool<Enemy>;
 	public static var pool_missile: Pool<Missile>;
 
-	var partSys: ParticleSystem;
-	var stars: ParticleSystem;
+	public static var expSys: ParticleSystem; // explosion system hah
+	var stars: ParticleSystem; // background
 
 	var debug: Text;
 
@@ -64,32 +64,39 @@ class Play extends State {
 
 		enemyRespawn();
 
+		//audio
+		Luxe.audio.loop('music');
+
 		// mechanic
 		loseStatus = false;
 		Luxe.events.listen('die!', function(e){
 			showResult();
 			loseStatus = true;
+			Luxe.audio.stop('music');
+		});
+		Luxe.events.listen('explosion', function(options: ExpEventOptions){
+			explodeAt(new Vector(options.x, options.y));
+			Luxe.audio.play('bass');
 		});
 
-		// partSys = new ParticleSystem({
-		// 	name: 'part_exp',
-		// 	pos: new Vector(Luxe.screen.w/2, Luxe.screen.h/2),
-		// 	});
-		// partSys.add_emitter({
-		// 	name: 'part_exp1',
-		// 	pos: new Vector(Luxe.screen.w/2, Luxe.screen.h/2),
-		// 	// pos_random: new Vector(100, 100),
-		// 	rotation: 45,
-		// 	speed: 100,
-		// 	speed_random: 50,
-		// 	start_size: new Vector(20, 20),
-		// 	end_size: new Vector(80, 80),
-		// 	direction_random: 360,
-		// 	life: 0.5, // lifetime of a particle
-		// 	emit_time: 0.05, // Interval before a new particle is emitted
-		// 	emit_count: 10, // Seems to be emitting in pulse and wave
-		// });
-		// partSys.start();		
+		expSys = new ParticleSystem({
+			name: 'part_exp',
+			pos: new Vector(Luxe.screen.w/2, Luxe.screen.h/2),
+			});
+		expSys.add_emitter({
+			name: 'part_exp1',
+			pos: new Vector(0, 0),
+			rotation: 45,
+			start_size: new Vector(50,50),
+			end_size: new Vector(50,50),
+			speed: 50,
+			speed_random: 20,
+			direction_random: 360,
+			life: 0.2, // lifetime of a particle
+			emit_time: 0.05, // Interval before a new particle is emitted
+			emit_count: 10, // Seems to be emitting in pulse and wave
+		});
+		expSys.stop();		
 
 		//Background stars
 		stars = new ParticleSystem({
@@ -102,17 +109,11 @@ class Play extends State {
 			pos_random: new Vector(Luxe.screen.w/2, 0),
 			start_color: new Color().rgb(0x444444),
 			end_color: new Color().rgb(0x444444),
-			// rotation: 45,
 			speed: 600,
 			speed_random: 300,
 			direction: -90,
-			// start_size: new Vector(20, 20),
-			// end_size: new Vector(80, 80),
 			start_size: new Vector(40, 80),
-			// start_size_random: new Vector(10, 25),
 			end_size: new Vector(40, 80),
-			// end_size_random: new Vector(10, 25),
-			// direction_random: 360,
 			life: 10, // lifetime of a particle
 			emit_time: 0.05, // Interval before a new particle is emitted
 			// emit_count: 10, // Seems to be emitting in pulse and wave
@@ -146,16 +147,11 @@ class Play extends State {
 
 		if (!loseStatus) scoreText.text = Std.string(score);
 
-		// if (p.has('collider') && p.active) trace('player has collider');
-
 		// Annouce player's position to enemies
 		Luxe.events.fire('player position', {x: p.pos.x, y: p.pos.y});
 
 
 		#if debug
-			// var targets = new Array<Entity>();
-			// targets = Luxe.scene.get_named_like('player', targets);
-
 			debug.text = Std.string(Luxe.scene.length)
 			+ '\n' ;
 		#end
@@ -250,6 +246,11 @@ class Play extends State {
 
 	}
 
+	function explodeAt(position: Vector) {
+		Play.expSys.pos = position;
+		Play.expSys.start(C.exp_time);
+	}
+
 // ------========= Pool management ======= ---------------
 
 
@@ -282,36 +283,9 @@ class Play extends State {
 			true);
 	}
 
-	// function poolInit() {
+}
 
-	// 	for (i in 0...50) {
-	// 		var entity = new Shot();
-	// 		entity.kill();
-	// 		pool[1].push(entity);
-	// 	}
-	// 	trace('shots created');
-
-	// 	var p = new Player();
-	// 	pool[0].push(p);
-	// 	trace('player created');
-	// }
-
-	// public function getFirstDead(pool: Array<Dynamic>) {
-	// 	for (entity in pool) {
-	// 		if (!entity.active) {
-	// 			if (!entity.visible) {
-	// 				return entity;
-	// 			}
-	// 		}
-	// 	}
-	// 	return null;
-	// }
-
-	// public function spawnSingle(pool: Array<Dynamic>, X: Float, Y:Float) {
-	// 	var entity = getFirstDead(pool);
-	// 	entity.pos.x = X;
-	// 	entity.pos.y = Y;
-	// 	entity.revive();
-	// }
-
+typedef ExpEventOptions = {
+	var x: Float;
+	var y: Float;
 }
