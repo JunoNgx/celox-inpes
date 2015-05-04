@@ -63,7 +63,6 @@ class Missile extends BaseEntity {
 			y: this.pos.y,
 			// Note the negated value in rotation_z
 			angle: -this.rotation_z,
-			// color: new Color().rgb(0xFD971F),
 			color: new Color().rgb(0xFC951E),
 		});
 	}

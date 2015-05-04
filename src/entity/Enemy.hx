@@ -3,7 +3,6 @@ package entity;
 import luxe.Vector;
 import luxe.Color;
 import luxe.collision.shapes.Polygon;
-import luxe.utils.Maths;
 
 import entity.BaseEntity;
 import component.Velocity;
@@ -62,7 +61,6 @@ class Enemy extends BaseEntity {
 	}
 
 	function onrender(){
-		// var Math = new luxe.utils.Maths();
 
 		Luxe.draw.ngon({
 			immediate: true,
@@ -72,7 +70,6 @@ class Enemy extends BaseEntity {
 			y: this.pos.y + this.radius * Math.sin(Math.PI /180 * this.rotation_z),
 			// Note the negated value in rotation_z
 			angle: -this.rotation_z,
-			// solid: true,
 			color: new Color().rgb(0xFFFFFF),
 		});
 
@@ -82,9 +79,7 @@ class Enemy extends BaseEntity {
 			sides: 6,
 			x: this.pos.x - this.radius * Math.cos(Math.PI /180 * this.rotation_z),
 			y: this.pos.y - this.radius * Math.sin(Math.PI /180 * this.rotation_z),
-			// Note the negated value in rotation_z
 			angle: -this.rotation_z,
-			// solid: true,
 			color: new Color().rgb(0xFFFFFF),
 		});
 
@@ -94,12 +89,9 @@ class Enemy extends BaseEntity {
 			sides: 6,
 			x: this.pos.x,
 			y: this.pos.y,
-			// Note the negated value in rotation_z
 			angle: -this.rotation_z,
 			solid: true,
 			color: new Color().rgb(0x3FB8CD),
-			// color: new Color().rgb(0x00B9D7),
-			// color: new Color().rgb(0x3E7ED9),
 			depth: -0.1,
 		});
 	}
@@ -107,8 +99,6 @@ class Enemy extends BaseEntity {
 	override public function hit() {
 		super.hit();
 
-		// Play.expSys.pos = this.pos;
-		// Play.expSys.start(C.exp_time);
 		Luxe.events.fire('explosion', {
 			x: this.pos.x,
 			y: this.pos.y,

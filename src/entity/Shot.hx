@@ -49,8 +49,6 @@ class Shot extends BaseEntity {
 			y: this.pos.y,
 			w: C.shot_w,
 			h: C.shot_h,
-			// Note the negated value in rotation_z
-			// angle: -this.rotation_z,
 			color: new Color().rgb(0xAE81FF),
 		});
 	}

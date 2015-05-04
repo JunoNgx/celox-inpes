@@ -24,15 +24,12 @@ class Title extends State {
 			text: 'Celox Inpes',
 			pos: new Vector ( Luxe.screen.w * 0.5, Luxe.screen.h * 0.3),
 			point_size: 60,
-			// font: font,
 			align: center,
 		});
 
 		subText = new Text({
-			// text: 'Celox Inpes',
 			pos: new Vector ( Luxe.screen.w * 0.5, Luxe.screen.h * 0.5),
 			point_size: 30,
-			// font: font,
 			align: center,
 		});
 
@@ -46,7 +43,6 @@ class Title extends State {
 			text: 'created by Juno Nguyen \n 2015 Aureoline Tetrahedron',
 			pos: new Vector ( Luxe.screen.w * 0.5, Luxe.screen.h * 0.9),
 			point_size: 20,
-			// font: font,
 			align: center,
 			color: new Color(0.2, 0.2, 0.2, 0.17),
 		});
@@ -55,7 +51,6 @@ class Title extends State {
 			text: '@JunoNgx',
 			pos: new Vector ( Luxe.screen.w, 0),
 			point_size: 15,
-			// font: font,
 			align: right,
 			align_vertical: top,
 		});

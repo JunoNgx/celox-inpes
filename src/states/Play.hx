@@ -214,10 +214,10 @@ class Play extends State {
 		}
 	} // onkeyup
 
-// ----------======= End of standard callbacks =======-------------------
+// -----====== End of standard callbacks =======--------------
 
 
-// -----====== Mechanic =======--------------
+// -----====== Mechanic =======--------
 
 	function showResult():Void {
 		scoreText.point_size = 40;
@@ -251,7 +251,7 @@ class Play extends State {
 		Play.expSys.start(C.exp_time);
 	}
 
-// ------========= Pool management ======= ---------------
+// ------========= Pool management =========--------
 
 
 	function poolSetup(){
