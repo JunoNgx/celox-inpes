@@ -5,9 +5,11 @@ import states.Play;
 import states.Splash;
 import states.Title;
 
+import phoenix.Color;
+
 class Main extends luxe.Game {
 
-	var initialState:String = 'title'; // First state to run, in string (luxe.States.State.name), refer to state's file
+	var initialState:String = 'play'; // First state to run, in string (luxe.States.State.name), refer to state's file
 
 	public static var state: States;
 
@@ -22,6 +24,8 @@ class Main extends luxe.Game {
 	}
 
 	override function ready() {
+
+		// Luxe.renderer.clear_color = new Color(0.23, 0.23, 0.23, 1) ;
 
 		// Create a state machine [...]
 		state = new States( { name: "states" } );

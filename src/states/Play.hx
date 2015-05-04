@@ -8,6 +8,7 @@ import luxe.Camera;
 import luxe.Text;
 import luxe.collision.ShapeDrawerLuxe;
 import luxe.collision.Collision;
+import luxe.Particles;
 
 import luxe.Entity;
 
@@ -31,6 +32,9 @@ class Play extends State {
 	public static var pool_enemy: Pool<Enemy>;
 	public static var pool_missile: Pool<Missile>;
 
+	var partSys: ParticleSystem;
+	var stars: ParticleSystem;
+
 	var debug: Text;
 
 	public function new() {
@@ -41,6 +45,8 @@ class Play extends State {
 	override public function onenter<T> (_:T) {
 
 		// UI
+		Luxe.camera.size = new Vector(Luxe.screen.w, Luxe.screen.h);
+
 		scoreText = new Text({
 			// immediate: true,
 			// visible: true,
@@ -64,6 +70,55 @@ class Play extends State {
 			showResult();
 			loseStatus = true;
 		});
+
+		// partSys = new ParticleSystem({
+		// 	name: 'part_exp',
+		// 	pos: new Vector(Luxe.screen.w/2, Luxe.screen.h/2),
+		// 	});
+		// partSys.add_emitter({
+		// 	name: 'part_exp1',
+		// 	pos: new Vector(Luxe.screen.w/2, Luxe.screen.h/2),
+		// 	// pos_random: new Vector(100, 100),
+		// 	rotation: 45,
+		// 	speed: 100,
+		// 	speed_random: 50,
+		// 	start_size: new Vector(20, 20),
+		// 	end_size: new Vector(80, 80),
+		// 	direction_random: 360,
+		// 	life: 0.5, // lifetime of a particle
+		// 	emit_time: 0.05, // Interval before a new particle is emitted
+		// 	emit_count: 10, // Seems to be emitting in pulse and wave
+		// });
+		// partSys.start();		
+
+		//Background stars
+		stars = new ParticleSystem({
+			name: 'part_stars',
+			pos: new Vector(Luxe.screen.w/2, -120),
+			});
+		stars.add_emitter({
+			name: 'part_stars1',
+			pos: new Vector(Luxe.screen.w/2, 0),
+			pos_random: new Vector(Luxe.screen.w/2, 0),
+			start_color: new Color().rgb(0x444444),
+			end_color: new Color().rgb(0x444444),
+			// rotation: 45,
+			speed: 600,
+			speed_random: 300,
+			direction: -90,
+			// start_size: new Vector(20, 20),
+			// end_size: new Vector(80, 80),
+			start_size: new Vector(40, 80),
+			// start_size_random: new Vector(10, 25),
+			end_size: new Vector(40, 80),
+			// end_size_random: new Vector(10, 25),
+			// direction_random: 360,
+			life: 10, // lifetime of a particle
+			emit_time: 0.05, // Interval before a new particle is emitted
+			// emit_count: 10, // Seems to be emitting in pulse and wave
+			depth: -2,
+		});
+		stars.start();
 
 // #if debug
 		// Luxe.scene.add(p);

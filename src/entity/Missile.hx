@@ -19,6 +19,7 @@ class Missile extends BaseEntity {
 		super({
 			name: 'missile',
 			name_unique: true,
+			visible: false,
 			size: new Vector(3, 3),
 			color: new Color().rgb(0x3FB8CD),
 		});
@@ -62,7 +63,8 @@ class Missile extends BaseEntity {
 			y: this.pos.y,
 			// Note the negated value in rotation_z
 			angle: -this.rotation_z,
-			color: new Color().rgb(0x3FB8CD),
+			// color: new Color().rgb(0xFD971F),
+			color: new Color().rgb(0xFC951E),
 		});
 	}
 

@@ -25,6 +25,7 @@ class Player extends BaseEntity {
 			name: 'player',
 			name_unique: true,
 			pos: new Vector(Luxe.screen.w * 2, Luxe.screen.h * 0.75),
+			visible: false,
 			size: new Vector(10, 10),
 		});
 
@@ -64,13 +65,13 @@ class Player extends BaseEntity {
 
 			var shot = Play.pool_shot.get();
 			shot.revive();
-			shot.pos = new Vector(pos.x - 10, pos.y - 5);
+			shot.pos = new Vector(pos.x - 14, pos.y - 15);
 
 			oddShot = false;
 		} else {
 			var shot = Play.pool_shot.get();
 			shot.revive();
-			shot.pos = new Vector(pos.x + 10, pos.y - 5);
+			shot.pos = new Vector(pos.x + 14, pos.y - 15);
 
 			oddShot = true;
 		}
@@ -89,8 +90,45 @@ class Player extends BaseEntity {
 			y: this.pos.y,
 			// Note the negated value in rotation_z
 			angle: -this.rotation_z,
-			color: new Color(1, 0.5, 0.7, 0.7),
+			solid: true,
+			color: new Color().rgb(0xF92672),
 		});
+
+		Luxe.draw.ngon({
+			immediate: true,
+			r: C.player_gunRadius,
+			sides: 3,
+			x: this.pos.x + 20,
+			y: this.pos.y - 10,
+			// Note the negated value in rotation_z
+			angle: -180,
+			solid: true,
+			color: new Color().rgb(0xA6E22E),
+		});
+
+		Luxe.draw.ngon({
+			immediate: true,
+			r: C.player_gunRadius,
+			sides: 3,
+			x: this.pos.x - 20,
+			y: this.pos.y - 10,
+			// Note the negated value in rotation_z
+			angle: -180,
+			solid: true,
+			color: new Color().rgb(0xA6E22E),
+		});
+
+		// Luxe.draw.rectangle({
+		// 	immediate: true,
+		// 	x: this.pos.x,
+		// 	y: this.pos.y - 50,
+		// 	w: 3,
+		// 	h: 3,
+		// 	scale: new Vector(200,200),
+		// 	// Note the negated value in rotation_z
+		// 	// angle: -this.rotation_z,
+		// 	color: new Color(1, 1, 1, 1),
+		// });
 	}
 
 	override public function kill() {

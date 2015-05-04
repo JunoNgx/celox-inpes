@@ -1,6 +1,7 @@
 package entity;
 
 import luxe.Vector;
+import luxe.Color;
 import luxe.collision.shapes.Polygon;
 
 import entity.BaseEntity;
@@ -15,6 +16,7 @@ class Shot extends BaseEntity {
 		super({
 			name: 'shot',
 			name_unique: true,
+			visible: false,
 			size: new Vector( C.shot_w, C.shot_h),
 			});
 
@@ -36,6 +38,21 @@ class Shot extends BaseEntity {
 		alignShape();
 
 		if (this.pos.y < -20) kill();
+
+		if (this.isAlive()) onrender();
+	}
+
+	public function onrender() {
+		Luxe.draw.rectangle({
+			immediate: true,
+			x: this.pos.x,
+			y: this.pos.y,
+			w: C.shot_w,
+			h: C.shot_h,
+			// Note the negated value in rotation_z
+			// angle: -this.rotation_z,
+			color: new Color().rgb(0xAE81FF),
+		});
 	}
 
 

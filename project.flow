@@ -3,7 +3,7 @@
         window: {
             width: 480,
             height: 640,
-            title: 'BulletHell',
+            title: 'Celox Inpes',
             fullscreen: false,
             resizable: false,
             borderless: true
@@ -26,18 +26,18 @@
     },
 
  	project : {
-		name : 'BulletHell',
+		name : 'Celox Inpes',
 		version : '0.0.1',
 		author : 'Aureoline Tetrahedron',
 
     app : {
     	"comments": "Spacing in app name is currently breaking the build",
     	"comments": "so avoid spaces for the moment",
-		name : 'BulletHell',
+		name : 'CeloxInpes',
 		package : 'com.junongx.html5.bullethell',
 		main : 'Main',
         mobile: {
-            orientation: 'poitrait',
+            orientation: 'portrait',
             android: {
                 sdk_target: '19'
             }

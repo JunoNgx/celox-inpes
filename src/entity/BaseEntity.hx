@@ -31,16 +31,18 @@ class BaseEntity extends Sprite {
 
 	public function kill() {
 		this.active = false;
-		this.visible = false;
+		// this.visible = false;
 	}
 
 	public function revive() {
 		this.active = true;
-		this.visible = true;
+		// this.visible = true;
 	}
 
 	public function isAlive() {
-		if (this.active && this.visible) {
+		if (this.active
+		// && this.visible
+		)  {
 			return true;
 		} else return false;
 	}
