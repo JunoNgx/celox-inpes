@@ -41,7 +41,8 @@ class Missile extends BaseEntity {
 		rotation_z += C.missile_rotateSpd * dt;
 
 		alignShape();
-		//killbounds
+
+		// setting killbounds
 		if (pos.x > Luxe.screen.w + C.missile_killbounds
 		|| pos.y > Luxe.screen.h + C.missile_killbounds
 		|| pos.x < - C.missile_killbounds

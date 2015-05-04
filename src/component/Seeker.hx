@@ -17,10 +17,6 @@ class Seeker extends Component {
 	
 	public var targetPos:Vector;
 
-	// override public function new() {
-	// 	super(options)
-	// }
-
 	override public function new() {
 		super({name: 'seeker'});
 		targetPos = new Vector( );
@@ -34,9 +30,9 @@ class Seeker extends Component {
 	}
 
 	public function reload() {
+		// Randomized firing delay
 		Luxe.timer.schedule(
 			Luxe.utils.random.float(C.seeker_firingDelay_min, C.seeker_firingDelay_max),
-			// 0.5,
 			fire
 			);
 	}

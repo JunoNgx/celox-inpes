@@ -41,9 +41,6 @@ class Enemy extends BaseEntity {
 		this.velocity.x = 0;
 		this.velocity.y = C.enemy_speed;
 
-		// this.events.listen('hit', function(e){
-		// 	this.kill();
-		// });
 		newRotateSpd();
 	}
 

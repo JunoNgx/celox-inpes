@@ -14,12 +14,6 @@ class Velocity extends Component {
 	
 	public var x: Float;
 	public var y: Float;
-	
-	// override function onadded() {
-	// 	// velocity.x == null will be freaking messy
-	// 	this.x = 0;
-	// 	this.y = 0;
-	// }
 
 	public override function new(_options:VelocityOptions) {
 		super(_options);

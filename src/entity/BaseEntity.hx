@@ -6,23 +6,13 @@ import luxe.options.SpriteOptions;
 
 import component.Velocity;
 import component.Collider;
-// import luxe.collision.shapes.Polygon;
 
 import C;
 
 class BaseEntity extends Sprite {
 
-	// var graphic: Array<Sprite>;
 	public var velocity: Velocity;
 	public var collider: Collider;
-	// public var shape: Polygon;
-
-	// override public function new(options: SpriteOptions) {
-	// 	super(SpriteOptions);
-
-	// 	velocity = new Velocity({name: 'velocity'});
-	// 	this.add(velocity);
-	// }
 
 	override public function new(options:SpriteOptions) {
 		super(options);
@@ -37,8 +27,6 @@ class BaseEntity extends Sprite {
 		this.collider.shape.y = pos.y;
 
 		this.collider.shape.rotation = rotation_z;
-
-		// trace(Std.string(this.inited));
 	}
 
 	public function kill() {

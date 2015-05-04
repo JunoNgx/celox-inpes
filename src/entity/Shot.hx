@@ -18,7 +18,6 @@ class Shot extends BaseEntity {
 			size: new Vector( C.shot_w, C.shot_h),
 			});
 
-		// shape = Polygon.rectangle(pos.x, pos.y, C.shot_w, C.shot_h, true);
 		collider = new Collider({
 			name: 'collider',
 			against: 'enemy',
@@ -31,14 +30,9 @@ class Shot extends BaseEntity {
 
 		this.velocity.x = 0;
 		this.velocity.y = -C.shot_speed;
-
-		// this.events.listen('hit', function(e){
-		// 	this.kill();
-		// });
 	}
 
 	override public function update(dt: Float) {
-		// if (this.has('collider')) trace ('shot has collider');
 		alignShape();
 
 		if (this.pos.y < -20) kill();

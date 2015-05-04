@@ -18,12 +18,9 @@ class C {
 
 	public static var enemy_speed:Int = 500;
 	public static var enemy_radius:Int = 20;
-	// public static var enemy_rotateSpd:Int = 10;
 	public static var enemy_rotateSpd_var:Float = 200;
-	// public static var enemy_rotateSpd_max:Float = 60;
 
 	public static var missile_speed:Int = 300;
-	// public static var missile_killbounds_top:Int = 300;
 	public static var missile_killbounds:Int = 100;
 	public static var missile_radius:Int = 10;
 	public static var missile_rotateSpd:Int = 120;
@@ -39,18 +36,5 @@ class C {
 	public static var pool_max_shot: Int = 24;
 	public static var pool_max_enemy: Int = 7;
 	public static var pool_max_missile: Int = 20;
-
-	// public static var player_speed:Float = 400;
-
-	// public static var bullet_speed:Float = 700;
-
-	// public static var enemy_speed:Float = 300;
-
-
-	// public static var keepBounds_x: Int = 200;
-	// public static var keepBounds_y: Int = 200;
-
-	// public static var killBounds_x:Int = 200;
-	// public static var killBounds_y:Int = 200;
 	
 }

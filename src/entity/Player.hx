@@ -13,8 +13,6 @@ import states.Play;
 import C;
 import entity.Shot;
 
-// import luxe.collision.shapes.Polygon;
-
 class Player extends BaseEntity {
 
 	var fireCooldown: Float = C.player_fireCooldown;
@@ -41,10 +39,6 @@ class Player extends BaseEntity {
 		this.add(collider);
 
 		revive();
-
-		// this.events.listen('hit', function(e){
-		// 	this.kill();
-		// });
 
 	} // new
 

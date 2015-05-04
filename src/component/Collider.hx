@@ -29,10 +29,6 @@ class Collider extends Component {
 		shape = _options.shape;
 	}
 
-	override public function onadded() {
-		// if (against == 'enemy') trace(entity.name);
-	}
-
 	override public function update(dt: Float) {
 
 		if (entity.active && against.length > 0) {
