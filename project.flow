@@ -1,0 +1,58 @@
+{
+    luxe: {
+        window: {
+            width: 480,
+            height: 640,
+            title: 'BulletHell',
+            fullscreen: false,
+            resizable: false,
+            borderless: true
+        }
+    },
+
+	flow : {
+        build: {
+            android : {
+            	"comments": "Path to your sdk and ant, in quote as strings",
+
+            	"comments": "'C:/AndroidDev/android-sdk-windows/'",
+                sdk : 'C:/AndroidDev/android-sdk-windows/',
+
+                "comments": "On Windows, point to your ant/bin/ant.bat, also in quote",
+                "comments": "'C:/AndroidDev/apache-ant-1.9.4/bin/ant.bat'",
+                ant_path : 'C:/AndroidDev/apache-ant-1.9.4/bin/ant.bat'
+            }
+        }
+    },
+
+ 	project : {
+		name : 'BulletHell',
+		version : '0.0.1',
+		author : 'Aureoline Tetrahedron',
+
+    app : {
+    	"comments": "Spacing in app name is currently breaking the build",
+    	"comments": "so avoid spaces for the moment",
+		name : 'BulletHell',
+		package : 'com.junongx.html5.bullethell',
+		main : 'Main',
+        mobile: {
+            orientation: 'poitrait',
+            android: {
+                sdk_target: '19'
+            }
+        }
+    },
+
+    build : {
+      dependencies : {
+        luxe : '*',
+      }
+    },
+
+    files : {
+      config : 'config.json',
+      assets : 'assets/'
+    }
+  }
+}
