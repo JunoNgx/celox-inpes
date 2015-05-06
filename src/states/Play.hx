@@ -15,19 +15,23 @@ import entity.Player;
 import entity.Shot;
 import entity.Enemy;
 import entity.Missile;
+import entity.Star;
+import entity.Explosion;
 
 class Play extends State {
 
 	static var shapeDrawer: ShapeDrawerLuxe;
 
 	var scoreText: Text;
-	public static var score: Int;
+	public var score: Int;
+
 	var loseStatus: Bool;
 
 	var p: Player;
-	// public static var pool_shot: Pool<Shot>;
-	// public static var pool_enemy: Pool<Enemy>;
-	// public static var pool_missile: Pool<Missile>;
+
+	// public static var shotGr: Pool<Shot>;
+	// public static var enemyGr: Pool<Enemy>;
+	// public static var missileGr: Pool<Missile>;
 
 	// public static var expSys: ParticleSystem; // explosion system hah
 	// var stars: ParticleSystem; // background
@@ -41,41 +45,48 @@ class Play extends State {
 
 	override public function onenter<T> (_:T) {
 
-		// // UI
-
-		// scoreText = new Text({
-		// 	// immediate: true,
-		// 	// visible: true,
-		// 	text: Std.string(score),
-		// 	point_size: 24,
-		// 	pos: new Vector(Luxe.screen.w * 0.5, Luxe.screen.h * 0.1),
-		// 	align: center,
-		// 	align_vertical: center
-		// });
-		// score = 0;
+		// UI
+		score = 0;
+		scoreText = new Text({
+			// immediate: true,
+			// visible: true,
+			text: Std.string(score),
+			point_size: 24,
+			pos: new Vector(Main.w * 0.5, Main.h * 0.1),
+			align: center,
+			align_vertical: center
+		});
 
 		// entities
 		// poolSetup();
+		// shotGr = [];
+		// enemyGr = [];
+		// missileGr = [];
+
+		for (i in 0...C.star_amt) {
+			var star = new Star();
+		}
+
 		p = new Player();
 
-
-
-		SpawnOneWaveOfEnemies();
+		// SpawnOneWaveOfEnemies();
 
 		//audio
 		// Luxe.audio.loop('music');
 
 		// mechanic
-		// loseStatus = false;
-		// Luxe.events.listen('die!', function(e){
-		// 	showResult();
-		// 	loseStatus = true;
-		// 	Luxe.audio.stop('music');
-		// });
+		loseStatus = false;
+		Luxe.events.listen('die!', function(e){
+			showResult();
+			loseStatus = true;
+			// Luxe.audio.stop('music');
+		});
 		// Luxe.events.listen('explosion', function(options: ExpEventOptions){
 		// 	explodeAt(new Vector(options.x, options.y));
 		// 	Luxe.audio.play('bass');
 		// });
+
+		Luxe.timer.schedule(2, SpawnOneWaveOfEnemies);
 
 		// expSys = new ParticleSystem({
 		// 	name: 'part_exp',
@@ -161,6 +172,8 @@ class Play extends State {
 	}
 
 	override public function onrender() {
+		shapeDrawer.drawShape(p.collider.shape);
+
 #if debug
 		// shapeDrawer.drawShape(p.collider.shape);
 
@@ -191,17 +204,17 @@ class Play extends State {
 
 		// debug.destroy();
 
-		// Luxe.timer.reset();
+		Luxe.timer.reset();
 		
 		// Rough and lazy but effect, huh?
-		// Luxe.scene.empty();
+		Luxe.scene.empty();
 	} // onleave
 
-	// override public function onmouseup(e: MouseEvent) {
-	// 	if (loseStatus) {
-	// 		Main.state.set('title');
-	// 	}
-	// } // onmouseup
+	override public function onmouseup(e: MouseEvent) {
+		if (loseStatus) {
+			Main.state.set('title');
+		}
+	} // onmouseup
 
 	// override public function ontouchmove(e: TouchEvent) {
 	// 	p.pos = Luxe.camera.screen_point_to_world(e.pos);
@@ -219,6 +232,8 @@ class Play extends State {
 			// 	enemy.seeker.fire();
 			// }
 			// var bullet = new Shot( Luxe.utils.random.float(0, 400), 600);
+
+			var exp = new Explosion ( 200, 200);
 		}
 	} // onkeyup
 
@@ -227,13 +242,82 @@ class Play extends State {
 
 // -----====== Mechanic =======--------
 
-	// function showResult():Void {
-	// 	scoreText.point_size = 40;
-	// 	scoreText.pos.y = Luxe.screen.h * 0.3;
-	// 	scoreText.text = 'Your score \n' + Std.string(score);
-	// }
+	function showResult() {
+		scoreText.point_size = 40;
+		scoreText.pos.y = Main.h * 0.3;
+		scoreText.text = 'Your score \n' + Std.string(score);
+
+		trace('showed result');
+	}
 
 	function collisionSweep() {
+
+		var shotGr = [];
+		Luxe.scene.get_named_like('shot', shotGr);
+		var enemyGr = [];
+		Luxe.scene.get_named_like('enemy', enemyGr);
+		var missileGr = [];
+		Luxe.scene.get_named_like('missile', missileGr);
+
+		// Luxe.scene.get_named_like() only returns an Array<luxe.Entity>
+		// without extended properties and members
+		// further fiddling and get() is required
+
+		// shot vs enemy
+		for (shot in shotGr) {
+			for (enemy in enemyGr) {
+				var sCol = shot.get('collider');
+				var eCol = enemy.get('collider');
+				if (Collision.shapeWithShape (sCol.shape, eCol.shape) != null) {
+					shot.destroy();
+					enemy.destroy();
+
+					explodeAt(enemy.pos);
+
+					score += 40;
+					updateScore();
+				}
+			}
+		}		
+
+		// shot vs missile
+		for (shot in shotGr) {
+			for (missile in missileGr) {
+				var sCol = shot.get('collider');
+				var mCol = missile.get('collider');
+				if (Collision.shapeWithShape (sCol.shape, mCol.shape) != null) {
+
+					score += 1;
+					updateScore();
+
+				}
+			}
+		}
+
+		// player vs enemy
+		for (enemy in enemyGr) {
+			var col = enemy.get('collider');
+			if (Collision.shapeWithShape (p.collider.shape, col.shape) != null) {
+				p.destroy();
+				enemy.destroy();
+
+				Luxe.events.fire('die!');
+			}
+		}
+
+		// player vs missile
+		for (missile in missileGr) {
+			var col = missile.get('collider');
+			if (Collision.shapeWithShape (p.collider.shape, col.shape) != null) {
+				p.destroy();
+				missile.destroy();
+
+				Luxe.events.fire('die!');
+			}
+		}
+
+
+
 		// for (enemy in enemyGroup) {
 		// 	for (bullet in bulletGroup) {
 		// 		if (Collision.shapeWithShape (enemy.shape, bullet.shape) != null) {
@@ -266,10 +350,26 @@ class Play extends State {
 
 	}
 
-	// function explodeAt(position: Vector) {
-	// 	Play.expSys.pos = position;
-	// 	Play.expSys.start(C.exp_time);
-	// }
+	function updateScore() {
+		scoreText.text = Std.string(score);
+	}
+
+	function explodeAt(position: Vector) {
+		// Play.expSys.pos = position;
+		// Play.expSys.start(C.exp_time);
+
+		var amt = Luxe.utils.random.int(C.exp_amt_min, C.exp_amt_max);
+
+		for (i in 0...amt) {
+			// Luxe.timer.schedule(0.005,
+			// 	function() {
+			// 		var exp = new Explosion ( position.x, position.y);
+			// 	}
+			// );
+			var exp = new Explosion ( position.x, position.y);
+		}
+		// Luxe.camera.shake(20);
+	}
 
 // ------========= Pool management =========--------
 

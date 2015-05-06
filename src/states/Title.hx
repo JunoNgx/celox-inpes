@@ -18,17 +18,16 @@ class Title extends State {
 	}
 
 	override public function onenter<T>(_:T) {
-		// super
 
 		titleText = new Text({
 			text: 'Celox Inpes',
-			pos: new Vector ( Luxe.screen.w * 0.5, Luxe.screen.h * 0.3),
+			pos: new Vector ( Main.w * 0.5, Main.h * 0.3),
 			point_size: 60,
 			align: center,
 		});
 
 		subText = new Text({
-			pos: new Vector ( Luxe.screen.w * 0.5, Luxe.screen.h * 0.5),
+			pos: new Vector ( Main.w * 0.5, Main.h * 0.5),
 			point_size: 30,
 			align: center,
 		});
@@ -41,7 +40,7 @@ class Title extends State {
 
 		bottomText = new Text({
 			text: 'created by Juno Nguyen \n 2015 Aureoline Tetrahedron',
-			pos: new Vector ( Luxe.screen.w * 0.5, Luxe.screen.h * 0.9),
+			pos: new Vector ( Main.w * 0.5, Main.h * 0.9),
 			point_size: 20,
 			align: center,
 			color: new Color(0.2, 0.2, 0.2, 0.17),
@@ -49,7 +48,7 @@ class Title extends State {
 
 		toprightText = new Text({
 			text: '@JunoNgx',
-			pos: new Vector ( Luxe.screen.w, 0),
+			pos: new Vector ( Main.w, 0),
 			point_size: 15,
 			align: right,
 			align_vertical: top,

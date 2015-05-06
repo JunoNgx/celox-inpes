@@ -59,6 +59,10 @@ class Enemy extends Sprite {
 		this.rotation_z += rotateSpd * Luxe.dt;
 	}
 
+	// override function destroy(){
+	// 	super.destroy();
+	// }
+
 	// public function destroy(){
 
 	// }

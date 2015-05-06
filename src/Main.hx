@@ -18,7 +18,7 @@ class Main extends luxe.Game {
 	public static var winW: Int;
 	public static var winH: Int;
 
-	var initialState:String = 'play'; // First state to run, in string (luxe.States.State.name), refer to state's file
+	var initialState:String = 'title'; // First state to run, in string (luxe.States.State.name), refer to state's file
 
 	public static var state: States;
 
@@ -51,7 +51,22 @@ class Main extends luxe.Game {
 		Main.winW = Luxe.snow.windowing.display_bounds(0).width;
 		Main.winH = Luxe.snow.windowing.display_bounds(0).height;
 
-		// Luxe.renderer.clear_color = new Color(0.23, 0.23, 0.23, 1) ;
+		// Background color
+		// Luxe.renderer.clear_color = new Color(1, 1, 1, 1);
+
+		// Draw line on horizontal borders
+		Luxe.draw.line({
+			p0: new Vector(0, 0),
+			p1: new Vector(0, Main.h),
+			color: new Color(0.2, 0.2, 0.2, 1),
+		});
+
+		Luxe.draw.line({
+			p0: new Vector(Main.w, 0),
+			p1: new Vector(Main.w, Main.h),
+			color: new Color(0.2, 0.2, 0.2, 1),
+		});
+
 		Luxe.audio.create('assets/DrumBass.ogg', 'bass');
 		Luxe.audio.create('assets/DrumSeq.ogg', 'music');
 		Luxe.screen.cursor.visible = false;
@@ -66,7 +81,17 @@ class Main extends luxe.Game {
 
 		// Set the inital state upon running the game
 		state.set(initialState);
-
 	}
+
+	// override function onrender() {
+	// 	// Luxe.draw.rectangle({
+	// 	// 	x: 0, y: 0,
+	// 	// 	w: Main.w,
+	// 	// 	h: Main.h,
+	// 	// 	color: new Color(0.2, 0.2, 0.2, 1),
+	// 	// 	// solid: true,
+	// 	// 	depth: -10,
+	// 	// });
+	// }
 
 }
