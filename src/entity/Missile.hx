@@ -20,8 +20,9 @@ class Missile extends Sprite {
 		super({
 			name: 'missile',
 			name_unique: true,
-			size: new Vector(C.missile_radius * 2, C.missile_radius * 2),
+			// size: new Vector(C.missile_radius * 2, C.missile_radius * 2),
 			color: new Color().rgb(0x3FB8CD),
+			texture: Luxe.resources.texture('assets/missile.png'),
 		});
 
 		velocity = new Velocity({

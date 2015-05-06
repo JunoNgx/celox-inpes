@@ -20,9 +20,10 @@ class Shot extends Sprite {
 		super({
 			name: 'shot',
 			name_unique: true,
-			size: new Vector( C.shot_w, C.shot_h),
+			// size: new Vector( C.shot_w, C.shot_h),
 			pos: new Vector(X, Y),
-			color: new Color(1, 0, 0, 1),
+			// color: new Color(1, 0, 0, 1),
+			texture: Luxe.resources.texture('assets/shot.png'),
 			});
 
 		velocity = new Velocity ({
@@ -43,26 +44,5 @@ class Shot extends Sprite {
 		this.add( new KillBounds( {name: 'killBounds'}));
 		// trace('shot created');
 	}
-
-	// override public function update(dt: Float) {
-	// 	alignShape();
-
-	// 	if (this.pos.y < -20) kill();
-
-	// 	if (this.isAlive()) onrender();
-	// }
-
-	// public function onrender() {
-	// 	Luxe.draw.rectangle({
-	// 		immediate: true,
-	// 		x: this.pos.x,
-	// 		y: this.pos.y,
-	// 		w: C.shot_w,
-	// 		h: C.shot_h,
-	// 		color: new Color().rgb(0xAE81FF),
-	// 	});
-	// }
-
-
 
 }

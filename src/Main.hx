@@ -9,6 +9,7 @@ import luxe.Camera;
 import luxe.Vector;
 import phoenix.Color;
 import luxe.Screen.WindowEvent;
+import phoenix.Texture;
 
 class Main extends luxe.Game {
 
@@ -25,9 +26,20 @@ class Main extends luxe.Game {
 	override function config(config:luxe.AppConfig) {
 
 		// Preloading textures, optional
-		config.preload.textures = [
-			{id: 'assets/logo_box.png'}
-		];
+		// config.preload.textures = [
+		// 	{id: 'assets/logo_box.png'},
+		// 	{id: 'assets/player.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest},
+		// 	{id: 'assets/shot.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest},
+		// 	{id: 'assets/enemy.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest},
+		// 	{id: 'assets/missile.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest},
+		// 	{id: 'assets/explosion.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest}
+		// ];
+
+		config.preload.textures.push({ id:'assets/player.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
+		config.preload.textures.push({ id:'assets/shot.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
+		config.preload.textures.push({ id:'assets/enemy.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
+		config.preload.textures.push({ id:'assets/missile.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
+		config.preload.textures.push({ id:'assets/explosion.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
 
         #if web
         	config.window.fullscreen = true;
@@ -52,7 +64,7 @@ class Main extends luxe.Game {
 		Main.winH = Luxe.snow.windowing.display_bounds(0).height;
 
 		// Background color
-		// Luxe.renderer.clear_color = new Color(1, 1, 1, 1);
+		Luxe.renderer.clear_color = new Color().rgb(0xD7D7D7);
 
 		// Draw line on horizontal borders
 		Luxe.draw.line({

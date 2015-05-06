@@ -43,10 +43,6 @@ class Seeker extends Component {
 
 		var missile = new Missile(0, 500);
 		missile.pos = new Vector(entity.pos.x, entity.pos.y);
-		// if (entity.active) {
-		// 	var missile = Play.pool_missile.get( );
-		// 	missile.pos = new Vector(entity.pos.x, entity.pos.y);
-		// 	missile.rotation_z = Luxe.utils.random.float(0,360);
 
 		var angle = Math.atan2(
 			targetPos.y - this.pos.y,
@@ -58,11 +54,8 @@ class Seeker extends Component {
 			C.missile_speed * Math.sin(angle)
 		);
 
-		// 	missile.velocity.x = C.missile_speed * Math.cos(angle);
-		// 	missile.velocity.y = C.missile_speed * Math.sin(angle);
+		missile.radians = angle;
 
-		// 	missile.revive( );
-		// }
 		trace('seeker fired');
 	}
 

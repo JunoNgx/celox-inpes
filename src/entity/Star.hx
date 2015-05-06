@@ -19,7 +19,7 @@ class Star extends Sprite {
 			name_unique: true,
 			pos: new Vector(Luxe.utils.random.float(0, Main.w), Luxe.utils.random.float(0, Main.h)),
 			size: new Vector(C.star_w, C.star_h),
-			color: new Color(1, 1, 1, 1),
+			color: new Color(0.1, 0.1, 0.1, 1),
 			depth: -9,
 		});
 

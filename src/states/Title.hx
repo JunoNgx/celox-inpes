@@ -39,7 +39,7 @@ class Title extends State {
 #end
 
 		bottomText = new Text({
-			text: 'created by Juno Nguyen \n 2015 Aureoline Tetrahedron',
+			// text: 'created by Juno Nguyen \n 2015 Aureoline Tetrahedron',
 			pos: new Vector ( Main.w * 0.5, Main.h * 0.9),
 			point_size: 20,
 			align: center,

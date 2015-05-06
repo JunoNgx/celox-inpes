@@ -25,10 +25,11 @@ class Enemy extends Sprite {
 		super({
 			name: 'enemy',
 			name_unique: true,
-			size: new Vector( C.enemy_size, C.enemy_size ),
+			// size: new Vector( C.enemy_size, C.enemy_size ),
 			color: new Color().rgb(0xFD971F),
 			pos: new Vector(Luxe.utils.random.float(0, Main.w),
 				Luxe.utils.random.float(C.spawn_area1, C.spawn_area2)),
+			texture: Luxe.resources.texture('assets/enemy.png'),
 		});
 
 		velocity = new Velocity ({
@@ -39,7 +40,7 @@ class Enemy extends Sprite {
 
 		collider = new Collider({
 			name: 'collider',
-			shape: Polygon.rectangle(pos.x, pos.y, C.shot_w, C.shot_h, true),
+			shape: Polygon.rectangle(pos.x, pos.y, C.enemy_size, C.enemy_size, true),
 		});
 		this.add(collider);
 
