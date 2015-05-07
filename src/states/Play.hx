@@ -39,10 +39,11 @@ class Play extends State {
 		score = 0;
 		scoreText = new Text({
 			text: Std.string(score),
-			point_size: 24,
+			// point_size: 32,
 			pos: new Vector(Main.w * 0.5, Main.h * 0.1),
 			align: center,
-			align_vertical: center
+			align_vertical: center,
+			font: Main.dFont,
 		});
 
 		// Adding the background stars
@@ -58,11 +59,11 @@ class Play extends State {
 			showResult();
 			loseStatus = true;
 			p.active = false;
-			// Luxe.audio.stop('music');
+			Luxe.audio.stop('music');
 		});
 
-		// Luxe.audio.loop('music');
-		Luxe.timer.schedule(2, SpawnOneWaveOfEnemies);
+		Luxe.audio.loop('music');
+		Luxe.timer.schedule(1, SpawnOneWaveOfEnemies);
 
 		debug = new Text({});
 // #end
@@ -85,7 +86,6 @@ class Play extends State {
 	}
 
 	override public function onrender() {
-		shapeDrawer.drawShape(p.collider.shape);
 
 #if debug
 		shapeDrawer.drawShape(p.collider.shape);
@@ -243,5 +243,6 @@ class Play extends State {
 			var exp = new Explosion ( position.x, position.y);
 		}
 		// Luxe.camera.shake(20);
+		Luxe.audio.play('bass');
 	}
 }

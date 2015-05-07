@@ -5,11 +5,13 @@ import luxe.Text;
 import luxe.Vector;
 import luxe.Color;
 import luxe.Input;
+import luxe.Sprite;
 
 class Title extends State {
 
-	var titleText: Text;
+	var titleText: Sprite;
 	var subText: Text;
+	var touchText: Text;
 	var bottomText: Text;
 	var toprightText: Text;
 
@@ -19,45 +21,59 @@ class Title extends State {
 
 	override public function onenter<T>(_:T) {
 
-		titleText = new Text({
-			text: 'Celox Inpes',
+		titleText = new Sprite({
+			// text: 'Celox Inpes',
+			texture: Luxe.resources.texture('assets/cilogo.png'),
 			pos: new Vector ( Main.w * 0.5, Main.h * 0.3),
-			point_size: 60,
-			align: center,
+			// point_size: 128,
+			// align: center,
+			// font: Main.dFont,
 		});
 
 		subText = new Text({
-			pos: new Vector ( Main.w * 0.5, Main.h * 0.5),
-			point_size: 30,
+			text: 'Mobile Redux',
+			pos: new Vector ( Main.w * 0.5, Main.h * 0.4),
+			point_size: 32,
 			align: center,
+			font: Main.dFont,
+		});
+
+		touchText = new Text({
+			pos: new Vector ( Main.w * 0.5, Main.h * 0.7),
+			point_size: 32,
+			align: center,
+			font: Main.dFont,
 		});
 
 #if mobile
-		subText.text = ' click to start';
+		touchText.text = ' click to start';
 #else
-		subText.text = ' touch to start';
+		touchText.text = ' touch to start';
 #end
 
 		bottomText = new Text({
-			// text: 'created by Juno Nguyen \n 2015 Aureoline Tetrahedron',
+			text: 'created by Juno Nguyen \n 2015 Aureoline Tetrahedron',
 			pos: new Vector ( Main.w * 0.5, Main.h * 0.9),
-			point_size: 20,
+			point_size: 32,
 			align: center,
-			color: new Color(0.2, 0.2, 0.2, 0.17),
+			color: new Color(0.1, 0.1, 0.1, 0.1),
+			font: Main.dFont,
 		});
 
 		toprightText = new Text({
 			text: '@JunoNgx',
 			pos: new Vector ( Main.w, 0),
-			point_size: 15,
+			point_size: 32,
 			align: right,
 			align_vertical: top,
+			font: Main.dFont,
 		});
 	}
 
 	override public function onleave<T>(_:T) {
 		titleText.destroy();
 		subText.destroy();
+		touchText.destroy();
 		bottomText.destroy();
 		toprightText.destroy();
 	}

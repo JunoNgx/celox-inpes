@@ -3,7 +3,7 @@
         window: {
             width: 480,
             height: 640,
-            title: 'Celox Inpes: Light',
+            title: 'Celox Inpes: Mobile Redux',
             fullscreen: false,
             resizable: true,
             borderless: true
@@ -26,15 +26,15 @@
     },
 
  	project : {
-		name : 'Celox Inpes: Light',
-		version : '1.5',
+		name : 'Celox Inpes: Mobile Redux',
+		version : '2.0',
 		author : 'Aureoline Tetrahedron',
 
     app : {
     	"comments": "Spacing in app name is currently breaking the build",
     	"comments": "so avoid spaces for the moment",
-		name : 'CeloxInpesLight',
-		package : 'com.junongx.html5.bullethell',
+		name : 'CeloxInpesRedux',
+		package : 'com.junongx.html5.bhredux',
 		main : 'Main',
         mobile: {
             orientation: 'portrait',

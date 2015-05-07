@@ -10,6 +10,7 @@ import luxe.Vector;
 import phoenix.Color;
 import luxe.Screen.WindowEvent;
 import phoenix.Texture;
+import phoenix.BitmapFont;
 
 class Main extends luxe.Game {
 
@@ -20,6 +21,8 @@ class Main extends luxe.Game {
 	public static var winH: Int;
 
 	var initialState:String = 'title'; // First state to run, in string (luxe.States.State.name), refer to state's file
+
+	public static var dFont: BitmapFont;
 
 	public static var state: States;
 
@@ -35,11 +38,16 @@ class Main extends luxe.Game {
 		// 	{id: 'assets/explosion.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest}
 		// ];
 
-		config.preload.textures.push({ id:'assets/player.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
-		config.preload.textures.push({ id:'assets/shot.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
-		config.preload.textures.push({ id:'assets/enemy.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
-		config.preload.textures.push({ id:'assets/missile.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
-		config.preload.textures.push({ id:'assets/explosion.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
+		config.preload.fonts.push({ id:'assets/Muzarela.fnt'});
+		// config.preload.fonts.push({ id:'assets/Muzarela64.fnt'});
+
+		config.preload.textures.push({ id:'assets/cilogo.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
+		
+		// config.preload.textures.push({ id:'assets/player.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
+		// config.preload.textures.push({ id:'assets/shot.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
+		// config.preload.textures.push({ id:'assets/enemy.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
+		// config.preload.textures.push({ id:'assets/missile.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
+		// config.preload.textures.push({ id:'assets/explosion.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
 
         #if web
         	config.window.fullscreen = true;
@@ -64,7 +72,10 @@ class Main extends luxe.Game {
 		Main.winH = Luxe.snow.windowing.display_bounds(0).height;
 
 		// Background color
-		Luxe.renderer.clear_color = new Color().rgb(0xD7D7D7);
+		// Luxe.renderer.clear_color = new Color().rgb(0xD7D7D7);
+		dFont = Luxe.resources.font('assets/Muzarela.fnt');
+		Luxe.audio.create('assets/DrumBass.ogg', 'bass');
+		Luxe.audio.create('assets/DrumSeq.ogg', 'music');
 
 		// Draw line on horizontal borders
 		Luxe.draw.line({

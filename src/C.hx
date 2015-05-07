@@ -9,24 +9,29 @@ package;
 class C {
 
 	public static var player_fireCooldown: Float = 0.1;
+	public static var player_radius: Int = 28;
+	public static var player_gunRadius: Int = 4;
+	public static var player_wingRadius: Int = 10;
 
 	public static var shot_w: Int = 8;
-	public static var shot_h: Int = 8;
-	public static var shot_speed: Int = 800;
+	public static var shot_h: Int = 24;
+	public static var shot_speed: Int = 1000;
 
 	public static var enemy_size:Int = 24;
 	public static var enemy_speed:Int = 500;
 	public static var enemy_speed_var:Int = 300;
 	public static var enemy_rotateSpd_var:Float = 200;
+	public static var enemy_radius:Int = 15;
+	public static var enemy_gunRadius:Int = 7;
 
 	public static var missile_speed:Int = 400;
 	public static var missile_radius:Int = 15;
+	public static var missile_rotateSpd:Int = 120;
 
 	public static var seeker_firingDelay_min:Float = 0.1;
 	public static var seeker_firingDelay_max:Float = 1.2;
 
-	public static var star_w: Int = 9;
-	public static var star_h: Int = 5;
+	public static var star_size: Int = 5;
 	public static var star_var_min: Float = 1;
 	public static var star_var_max: Float = 2;
 	public static var star_speed: Float = 100;
