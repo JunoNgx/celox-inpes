@@ -54,6 +54,15 @@ class Shot extends Entity {
 			h: C.shot_h,
 			color: new Color().rgb(0xA6E22E),
 		});
+
+		Luxe.draw.rectangle({
+			immediate: true,
+			x: this.pos.x - C.trail_w/2,
+			y: this.pos.y,
+			w: C.trail_w,
+			h: C.trail_h,
+			color: new Color().rgb(0x444444),
+		});
 	}
 
 }

@@ -166,10 +166,10 @@ class Play extends State {
 				var sCol = shot.get('collider');
 				var eCol = enemy.get('collider');
 				if (Collision.shapeWithShape (sCol.shape, eCol.shape) != null) {
+					explodeAt(enemy.pos);
+
 					shot.destroy();
 					enemy.destroy();
-
-					explodeAt(enemy.pos);
 
 					score += 40;
 					updateScore();
@@ -196,10 +196,13 @@ class Play extends State {
 			var col = enemy.get('collider');
 			if (Collision.shapeWithShape (p.collider.shape, col.shape) != null
 			&& p.active) {
+				explodeAt(enemy.pos);
+
 				p.destroy();
 				enemy.destroy();
 
 				Luxe.events.fire('die!');
+				explodeAt(enemy.pos);
 			}
 		}
 
@@ -208,6 +211,8 @@ class Play extends State {
 			var col = missile.get('collider');
 			if (Collision.shapeWithShape (p.collider.shape, col.shape) != null
 			&& p.active) {
+				explodeAt(p.pos);
+
 				p.destroy();
 				missile.destroy();
 

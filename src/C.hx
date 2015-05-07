@@ -13,9 +13,11 @@ class C {
 	public static var player_gunRadius: Int = 4;
 	public static var player_wingRadius: Int = 10;
 
-	public static var shot_w: Int = 8;
-	public static var shot_h: Int = 24;
+	public static var shot_w: Int = 16;
+	public static var shot_h: Int = 12;
 	public static var shot_speed: Int = 1000;
+	public static var trail_w: Int = 4;
+	public static var trail_h: Int = 18;
 
 	public static var enemy_size:Int = 24;
 	public static var enemy_speed:Int = 500;
@@ -37,8 +39,8 @@ class C {
 	public static var star_speed: Float = 100;
 	public static var star_amt: Int = 20;
 
-	public static var exp_amt_min: Int = 3;
-	public static var exp_amt_max: Int = 7;
+	public static var exp_amt_min: Int = 2;
+	public static var exp_amt_max: Int = 5;
 	public static var exp_pos_var: Int = 20;
 	public static var exp_scale: Int = 7;
 	public static var exp_size: Int = 32;

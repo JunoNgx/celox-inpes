@@ -54,11 +54,13 @@ class Seeker extends Component {
 			C.missile_speed * Math.sin(angle)
 		);
 
+		// missile.velocity.set(0, 700);
+
 		// missile.collider.shape.rotation = angle * 180 / Math.PI;
 		missile.collider.shape.rotation = Luxe.utils.random.float(0,360);
 		
 
-		trace('seeker fired');
+		// trace('seeker fired');
 	}
 
 }
