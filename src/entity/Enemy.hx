@@ -41,6 +41,7 @@ class Enemy extends Entity {
 
 		collider = new Collider({
 			name: 'collider',
+			against: 'player',
 			// shape: Polygon.rectangle(pos.x, pos.y, C.enemy_size, C.enemy_size, true),
 			shape: Polygon.create(pos.x, pos.y, 6, C.enemy_radius)
 		});
@@ -56,6 +57,13 @@ class Enemy extends Entity {
 
 		rotateSpd = Luxe.utils.random.float(-C.enemy_rotateSpd_var, C.enemy_rotateSpd_var);
 		seeker.reload();
+
+		this.events.listen('hit', function(e){
+			this.active = false;
+			Luxe.events.fire('explosion', {x: this.pos.x, y: this.pos.y});
+
+			Play.score += 50;
+		});
 	}
 
 	// public function newSpeed(){
@@ -65,36 +73,38 @@ class Enemy extends Entity {
 	override function update(dt: Float) {
 		this.collider.shape.rotation += rotateSpd * dt;
 
-		Luxe.draw.ngon({
-			immediate: true,
-			r: C.enemy_gunRadius,
-			sides: 6,
-			x: this.pos.x + C.enemy_radius * Math.cos(Math.PI /180 * this.collider.shape.rotation),
-			y: this.pos.y + C.enemy_radius * Math.sin(Math.PI /180 * this.collider.shape.rotation),
-			angle: -this.collider.shape.rotation,
-			color: new Color().rgb(0xFFFFFF),
-		});
+		if (this.active) {
+			Luxe.draw.ngon({
+				immediate: true,
+				r: C.enemy_gunRadius,
+				sides: 6,
+				x: this.pos.x + C.enemy_radius * Math.cos(Math.PI /180 * this.collider.shape.rotation),
+				y: this.pos.y + C.enemy_radius * Math.sin(Math.PI /180 * this.collider.shape.rotation),
+				angle: -this.collider.shape.rotation,
+				color: new Color().rgb(0xFFFFFF),
+			});
 
-		Luxe.draw.ngon({
-			immediate: true,
-			r: C.enemy_gunRadius,
-			sides: 6,
-			x: this.pos.x - C.enemy_radius * Math.cos(Math.PI /180 * this.collider.shape.rotation),
-			y: this.pos.y - C.enemy_radius * Math.sin(Math.PI /180 * this.collider.shape.rotation),
-			angle: -this.collider.shape.rotation,
-			color: new Color().rgb(0xFFFFFF),
-		});
+			Luxe.draw.ngon({
+				immediate: true,
+				r: C.enemy_gunRadius,
+				sides: 6,
+				x: this.pos.x - C.enemy_radius * Math.cos(Math.PI /180 * this.collider.shape.rotation),
+				y: this.pos.y - C.enemy_radius * Math.sin(Math.PI /180 * this.collider.shape.rotation),
+				angle: -this.collider.shape.rotation,
+				color: new Color().rgb(0xFFFFFF),
+			});
 
-		Luxe.draw.ngon({
-			immediate: true,
-			r: C.enemy_radius,
-			sides: 6,
-			x: this.pos.x,
-			y: this.pos.y,
-			angle: -this.collider.shape.rotation,
-			solid: true,
-			color: new Color().rgb(0xAE81ff),
-			depth: -0.1,
-		});
+			Luxe.draw.ngon({
+				immediate: true,
+				r: C.enemy_radius,
+				sides: 6,
+				x: this.pos.x,
+				y: this.pos.y,
+				angle: -this.collider.shape.rotation,
+				solid: true,
+				color: new Color().rgb(0xAE81ff),
+				depth: -0.1,
+			});
+		}
 	}
 }

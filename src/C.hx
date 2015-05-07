@@ -40,7 +40,7 @@ class C {
 	public static var star_amt: Int = 20;
 
 	public static var exp_amt_min: Int = 2;
-	public static var exp_amt_max: Int = 5;
+	public static var exp_amt_max: Int = 4;
 	public static var exp_pos_var: Int = 20;
 	public static var exp_scale: Int = 7;
 	public static var exp_size: Int = 32;

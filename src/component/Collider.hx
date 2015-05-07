@@ -32,5 +32,25 @@ class Collider extends Component {
 	override public function update(dt: Float) {
 		this.shape.x = entity.pos.x;
 		this.shape.y = entity.pos.y;
+
+		if (entity.active && against.length > 0) {
+			
+			var targets = new Array<Entity>();
+			Luxe.scene.get_named_like(against, targets);
+
+			for (target in targets) {
+				if (target.active
+				&&  target.has('collider')){
+
+					var target_collider = target.get('collider');
+					
+					if (Collision.shapeWithShape(shape, target_collider.shape) != null) {
+						// trace(entity.name + ' hit ' + target.name);
+						target.events.fire('hit');
+						entity.events.fire('hit');
+					}
+				}
+			}
+		}
 	}
 }

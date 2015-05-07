@@ -21,6 +21,7 @@ class Player extends Entity {
 	public function new() {
 		super({
 			name: 'player',
+			name_unique: true,
 			pos: new Vector(Main.w * 2, Main.h * 0.75),
 			// visible: true,
 			// size: new Vector(30, 30),
@@ -39,6 +40,13 @@ class Player extends Entity {
 
 		this.add( new Machinegun( {name: 'machinegun'}));
 
+		this.events.listen('hit', function(e){
+			this.active = false;
+			Luxe.events.fire('explosion', {x: this.pos.x, y: this.pos.y});
+			
+			Luxe.events.fire('die!');
+		});
+
 	} // new
 
 
@@ -52,57 +60,60 @@ class Player extends Entity {
 	} // on touch move
 
 	override function update(dt: Float) {
-		Luxe.draw.ngon({
-			immediate: true,
-			r: C.player_radius,
-			sides: 3,
-			x: this.pos.x,
-			y: this.pos.y,
-			angle: -180,
-			solid: true,
-			color: new Color().rgb(0xF92672),
-		});
 
-		Luxe.draw.ngon({
-			immediate: true,
-			r: C.player_wingRadius,
-			sides: 3,
-			x: this.pos.x + 18,
-			y: this.pos.y + 10,
-			solid: true,
-			color: new Color().rgb(0xA6E22E),
-		});
+		if (this.active) {
+			Luxe.draw.ngon({
+				immediate: true,
+				r: C.player_radius,
+				sides: 3,
+				x: this.pos.x,
+				y: this.pos.y,
+				angle: -180,
+				solid: true,
+				color: new Color().rgb(0xF92672),
+			});
 
-		Luxe.draw.ngon({
-			immediate: true,
-			r: C.player_wingRadius,
-			sides: 3,
-			x: this.pos.x - 18,
-			y: this.pos.y + 10,
-			solid: true,
-			color: new Color().rgb(0xA6E22E),
-		});
+			Luxe.draw.ngon({
+				immediate: true,
+				r: C.player_wingRadius,
+				sides: 3,
+				x: this.pos.x + 18,
+				y: this.pos.y + 10,
+				// solid: true,
+				color: new Color().rgb(0xA6E22E),
+			});
 
-		Luxe.draw.ngon({
-			immediate: true,
-			r: C.player_gunRadius,
-			sides: 4,
-			x: this.pos.x - 10,
-			y: this.pos.y - 14,
-			angle: 45,
-			solid: true,
-			color: new Color().rgb(0xFC951E),
-		});
+			Luxe.draw.ngon({
+				immediate: true,
+				r: C.player_wingRadius,
+				sides: 3,
+				x: this.pos.x - 18,
+				y: this.pos.y + 10,
+				// solid: true,
+				color: new Color().rgb(0xA6E22E),
+			});
 
-		Luxe.draw.ngon({
-			immediate: true,
-			r: C.player_gunRadius,
-			sides: 4,
-			x: this.pos.x + 10,
-			y: this.pos.y - 14,
-			angle: 45,
-			solid: true,
-			color: new Color().rgb(0xFC951E),
-		});
+			Luxe.draw.ngon({
+				immediate: true,
+				r: C.player_gunRadius,
+				sides: 4,
+				x: this.pos.x - 10,
+				y: this.pos.y - 14,
+				angle: 45,
+				solid: true,
+				color: new Color().rgb(0xFC951E),
+			});
+
+			Luxe.draw.ngon({
+				immediate: true,
+				r: C.player_gunRadius,
+				sides: 4,
+				x: this.pos.x + 10,
+				y: this.pos.y - 14,
+				angle: 45,
+				solid: true,
+				color: new Color().rgb(0xFC951E),
+			});
+		}
 	}
 }

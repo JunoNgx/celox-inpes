@@ -23,7 +23,7 @@ class Play extends State {
 	static var shapeDrawer: ShapeDrawerLuxe;
 
 	var scoreText: Text;
-	public var score: Int;
+	public static var score: Int;
 	var loseStatus: Bool;
 	var p: Player;
 	var debug: Text;
@@ -62,6 +62,10 @@ class Play extends State {
 			Luxe.audio.stop('music');
 		});
 
+		Luxe.events.listen('explosion', function(options: PositionOptions){
+			explodeAt(options.x, options.y);
+		});
+
 		Luxe.audio.loop('music');
 		Luxe.timer.schedule(1, SpawnOneWaveOfEnemies);
 
@@ -70,7 +74,9 @@ class Play extends State {
 	}
 
 	override public function update(dt: Float) {
-		collisionSweep();
+		// collisionSweep();
+
+		if (!loseStatus) scoreText.text = Std.string(score);
 
 		// Annouce player's position to enemies
 		Luxe.events.fire('player position', {x: p.pos.x, y: p.pos.y});
@@ -117,6 +123,7 @@ class Play extends State {
 	override public function onleave<T> (_:T) {
 		Luxe.timer.reset();
 		Luxe.scene.empty();
+		Luxe.events.clear();
 	} // onleave
 
 	override public function onmouseup(e: MouseEvent) {
@@ -147,79 +154,79 @@ class Play extends State {
 		trace('showed result');
 	}
 
-	function collisionSweep() {
+	// function collisionSweep() {
 
-		var shotGr = [];
-		Luxe.scene.get_named_like('shot', shotGr);
-		var enemyGr = [];
-		Luxe.scene.get_named_like('enemy', enemyGr);
-		var missileGr = [];
-		Luxe.scene.get_named_like('missile', missileGr);
+	// 	var shotGr = [];
+	// 	Luxe.scene.get_named_like('shot', shotGr);
+	// 	var enemyGr = [];
+	// 	Luxe.scene.get_named_like('enemy', enemyGr);
+	// 	var missileGr = [];
+	// 	Luxe.scene.get_named_like('missile', missileGr);
 
-		// Luxe.scene.get_named_like() only returns an Array<luxe.Entity>
-		// without extended properties and members
-		// further fiddling and get() is required
+	// 	// Luxe.scene.get_named_like() only returns an Array<luxe.Entity>
+	// 	// without extended properties and members
+	// 	// further fiddling and get() is required
 
-		// shot vs enemy
-		for (shot in shotGr) {
-			for (enemy in enemyGr) {
-				var sCol = shot.get('collider');
-				var eCol = enemy.get('collider');
-				if (Collision.shapeWithShape (sCol.shape, eCol.shape) != null) {
-					explodeAt(enemy.pos);
+	// 	// shot vs enemy
+	// 	for (shot in shotGr) {
+	// 		for (enemy in enemyGr) {
+	// 			var sCol = shot.get('collider');
+	// 			var eCol = enemy.get('collider');
+	// 			if (Collision.shapeWithShape (sCol.shape, eCol.shape) != null) {
+	// 				explodeAt(enemy.pos);
 
-					shot.destroy();
-					enemy.destroy();
+	// 				shot.destroy();
+	// 				enemy.destroy();
 
-					score += 40;
-					updateScore();
-				}
-			}
-		}		
+	// 				score += 40;
+	// 				updateScore();
+	// 			}
+	// 		}
+	// 	}		
 
-		// shot vs missile
-		for (shot in shotGr) {
-			for (missile in missileGr) {
-				var sCol = shot.get('collider');
-				var mCol = missile.get('collider');
-				if (Collision.shapeWithShape (sCol.shape, mCol.shape) != null) {
+	// 	// shot vs missile
+	// 	for (shot in shotGr) {
+	// 		for (missile in missileGr) {
+	// 			var sCol = shot.get('collider');
+	// 			var mCol = missile.get('collider');
+	// 			if (Collision.shapeWithShape (sCol.shape, mCol.shape) != null) {
 
-					score += 1;
-					updateScore();
+	// 				score += 1;
+	// 				updateScore();
 
-				}
-			}
-		}
+	// 			}
+	// 		}
+	// 	}
 
-		// player vs enemy
-		for (enemy in enemyGr) {
-			var col = enemy.get('collider');
-			if (Collision.shapeWithShape (p.collider.shape, col.shape) != null
-			&& p.active) {
-				explodeAt(enemy.pos);
+	// 	// player vs enemy
+	// 	for (enemy in enemyGr) {
+	// 		var col = enemy.get('collider');
+	// 		if (Collision.shapeWithShape (p.collider.shape, col.shape) != null
+	// 		&& p.active) {
+	// 			explodeAt(enemy.pos);
 
-				p.destroy();
-				enemy.destroy();
+	// 			p.destroy();
+	// 			enemy.destroy();
 
-				Luxe.events.fire('die!');
-				explodeAt(enemy.pos);
-			}
-		}
+	// 			Luxe.events.fire('die!');
+	// 			explodeAt(enemy.pos);
+	// 		}
+	// 	}
 
-		// player vs missile
-		for (missile in missileGr) {
-			var col = missile.get('collider');
-			if (Collision.shapeWithShape (p.collider.shape, col.shape) != null
-			&& p.active) {
-				explodeAt(p.pos);
+	// 	// player vs missile
+	// 	for (missile in missileGr) {
+	// 		var col = missile.get('collider');
+	// 		if (Collision.shapeWithShape (p.collider.shape, col.shape) != null
+	// 		&& p.active) {
+	// 			explodeAt(p.pos);
 
-				p.destroy();
-				missile.destroy();
+	// 			p.destroy();
+	// 			missile.destroy();
 
-				Luxe.events.fire('die!');
-			}
-		}
-	}
+	// 			Luxe.events.fire('die!');
+	// 		}
+	// 	}
+	// }
 
 	function SpawnOneWaveOfEnemies() {
 
@@ -239,15 +246,21 @@ class Play extends State {
 		if (p.active) scoreText.text = Std.string(score);
 	}
 
-	function explodeAt(position: Vector) {
+	function explodeAt(X: Float, Y: Float) {
 
 		// Randomize
 		var amt = Luxe.utils.random.int(C.exp_amt_min, C.exp_amt_max);
 
 		for (i in 0...amt) {
-			var exp = new Explosion ( position.x, position.y);
+			var exp = new Explosion (X, Y);
 		}
 		// Luxe.camera.shake(20);
 		Luxe.audio.play('bass');
 	}
+
+}
+
+typedef PositionOptions = {
+	var x: Float;
+	var y: Float;
 }

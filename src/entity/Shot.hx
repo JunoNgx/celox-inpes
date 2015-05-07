@@ -35,6 +35,7 @@ class Shot extends Entity {
 
 		collider = new Collider({
 			name: 'collider',
+			against: 'enemy',
 			shape: Polygon.rectangle(pos.x, pos.y, C.shot_w, C.shot_h, true),
 		});
 		this.add(collider);
@@ -43,26 +44,33 @@ class Shot extends Entity {
 
 		this.add( new KillBounds( {name: 'killBounds'}));
 		// trace('shot created');
+
+		this.events.listen('hit', function(e){
+			this.active = false;
+		});
 	}
 
 	override public function update(dt: Float) {
-		Luxe.draw.rectangle({
-			immediate: true,
-			x: this.pos.x - C.shot_w/2,
-			y: this.pos.y - C.shot_h/2,
-			w: C.shot_w,
-			h: C.shot_h,
-			color: new Color().rgb(0xA6E22E),
-		});
 
-		Luxe.draw.rectangle({
-			immediate: true,
-			x: this.pos.x - C.trail_w/2,
-			y: this.pos.y,
-			w: C.trail_w,
-			h: C.trail_h,
-			color: new Color().rgb(0x444444),
-		});
+		if (this.active) {
+			Luxe.draw.rectangle({
+				immediate: true,
+				x: this.pos.x - C.shot_w/2,
+				y: this.pos.y - C.shot_h/2,
+				w: C.shot_w,
+				h: C.shot_h,
+				color: new Color().rgb(0xA6E22E),
+			});
+
+			Luxe.draw.rectangle({
+				immediate: true,
+				x: this.pos.x - C.trail_w/2,
+				y: this.pos.y,
+				w: C.trail_w,
+				h: C.trail_h,
+				color: new Color().rgb(0x444444),
+			});
+		}
 	}
-
+	
 }
