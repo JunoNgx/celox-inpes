@@ -138,7 +138,7 @@ class Play extends State {
 		pool_exp = null;
 	} // onleave
 
-	override public function onmousedown(e: MouseEvent) {
+	override public function onmouseup(e: MouseEvent) {
 		if (loseStatus) {
 			Main.state.set('title');
 		}
