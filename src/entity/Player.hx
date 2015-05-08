@@ -23,14 +23,10 @@ class Player extends Entity {
 			name: 'player',
 			name_unique: true,
 			pos: new Vector(Main.w * 2, Main.h * 0.75),
-			// visible: true,
-			// size: new Vector(30, 30),
-			// texture: Luxe.resources.texture('assets/player.png')
 		});
 
 		collider = new Collider({
 			name: 'collider',
-			// shape: Polygon.rectangle(pos.x, pos.y, 20, 20, true),
 			shape: Polygon.create(pos.x, pos.y, 3, C.player_radius),
 		});
 		this.add(collider);
@@ -79,7 +75,6 @@ class Player extends Entity {
 				sides: 3,
 				x: this.pos.x + 18,
 				y: this.pos.y + 10,
-				// solid: true,
 				color: new Color().rgb(0xA6E22E),
 			});
 
@@ -89,7 +84,6 @@ class Player extends Entity {
 				sides: 3,
 				x: this.pos.x - 18,
 				y: this.pos.y + 10,
-				// solid: true,
 				color: new Color().rgb(0xA6E22E),
 			});
 

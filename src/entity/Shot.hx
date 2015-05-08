@@ -20,11 +20,7 @@ class Shot extends Entity {
 		super({
 			name: 'shot',
 			name_unique: true,
-			// size: new Vector( C.shot_w, C.shot_h),
-			// pos: new Vector(X, Y),
-			// color: new Color(1, 0, 0, 1),
-			// texture: Luxe.resources.texture('assets/shot.png'),
-			});
+		});
 
 		velocity = new Velocity ({
 			name: 'velocity',
@@ -39,8 +35,6 @@ class Shot extends Entity {
 			shape: Polygon.rectangle(pos.x, pos.y, C.shot_w, C.shot_h, true),
 		});
 		this.add(collider);
-
-		// this.velocity.set(0, - C.shot_speed);
 
 		this.add( new KillBounds( {name: 'killBounds'}));
 		// trace('shot created');

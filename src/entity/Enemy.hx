@@ -25,12 +25,6 @@ class Enemy extends Entity {
 		super({
 			name: 'enemy',
 			name_unique: true,
-			// visible: false,
-			// size: new Vector( C.enemy_size, C.enemy_size ),
-			// color: new Color().rgb(0xFD971F),
-			// pos: new Vector(Luxe.utils.random.float(0, Main.w),
-			// 	Luxe.utils.random.float(C.spawn_area1, C.spawn_area2)),
-			// texture: Luxe.resources.texture('assets/enemy.png'),
 		});
 
 		velocity = new Velocity ({
@@ -41,7 +35,6 @@ class Enemy extends Entity {
 		collider = new Collider({
 			name: 'collider',
 			against: 'player',
-			// shape: Polygon.rectangle(pos.x, pos.y, C.enemy_size, C.enemy_size, true),
 			shape: Polygon.create(pos.x, pos.y, 6, C.enemy_radius)
 		});
 		this.add(collider);
@@ -72,10 +65,6 @@ class Enemy extends Entity {
 		seeker.reload();
 		active = true;
 	}
-
-	// public function newSpeed(){
-	// 	this.rotateSpd = Luxe.utils.random.float(-C.enemy_rotateSpd_var, C.enemy_rotateSpd_var);
-	// }
 
 	override function update(dt: Float) {
 		this.collider.shape.rotation += rotateSpd * dt;

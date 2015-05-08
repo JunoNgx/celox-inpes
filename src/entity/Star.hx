@@ -19,9 +19,6 @@ class Star extends Entity {
 			name: 'star',
 			name_unique: true,
 			pos: new Vector(Luxe.utils.random.float(0, Main.w), Luxe.utils.random.float(0, Main.h)),
-			// size: new Vector(C.star_w, C.star_h),
-			// color: new Color(0.7, 0.7, 0.7, 1),
-			// depth: -9,
 		});
 
 		velocity = new Velocity({name: 'velocity'});
@@ -35,10 +32,6 @@ class Star extends Entity {
 
 		this.velocity.set(0, C.star_speed * variance);
 		this.size = C.star_size * variance;
-		// this.size = new Vector (
-		// 	C.star_w * Luxe.utils.random.float(C.star_var_min, C.star_var_max),
-		// 	C.star_h * Luxe.utils.random.float(C.star_var_min, C.star_var_max)
-		// );
 	}
 
 	public function returnToTop() {

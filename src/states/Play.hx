@@ -48,7 +48,6 @@ class Play extends State {
 		score = 0;
 		scoreText = new Text({
 			text: Std.string(score),
-			// point_size: 32,
 			pos: new Vector(Main.w * 0.5, Main.h * 0.1),
 			align: center,
 			align_vertical: center,
@@ -83,11 +82,10 @@ class Play extends State {
 	}
 
 	override public function update(dt: Float) {
-		// collisionSweep();
 
 		if (!loseStatus) scoreText.text = Std.string(score);
 
-		// Annouce player's position to enemies
+		// Annouce player's position to the whole world
 		Luxe.events.fire('player position', {x: p.pos.x, y: p.pos.y});
 
 		#if debug
@@ -150,10 +148,9 @@ class Play extends State {
 		//escape from the game at any time, mostly for debugging purpose
 		if(e.keycode == Key.escape) {
 			Luxe.shutdown();
-		} else if (e.keycode == Key.space) {
-
 		}
-	} // onkeyup for debugging
+
+	} // onkeyup
 
 // -----====== End of standard callbacks =======--------------
 
@@ -167,86 +164,10 @@ class Play extends State {
 
 		trace('showed result');
 	}
-
-	// function collisionSweep() {
-
-	// 	var shotGr = [];
-	// 	Luxe.scene.get_named_like('shot', shotGr);
-	// 	var enemyGr = [];
-	// 	Luxe.scene.get_named_like('enemy', enemyGr);
-	// 	var missileGr = [];
-	// 	Luxe.scene.get_named_like('missile', missileGr);
-
-	// 	// Luxe.scene.get_named_like() only returns an Array<luxe.Entity>
-	// 	// without extended properties and members
-	// 	// further fiddling and get() is required
-
-	// 	// shot vs enemy
-	// 	for (shot in shotGr) {
-	// 		for (enemy in enemyGr) {
-	// 			var sCol = shot.get('collider');
-	// 			var eCol = enemy.get('collider');
-	// 			if (Collision.shapeWithShape (sCol.shape, eCol.shape) != null) {
-	// 				explodeAt(enemy.pos);
-
-	// 				shot.destroy();
-	// 				enemy.destroy();
-
-	// 				score += 40;
-	// 				updateScore();
-	// 			}
-	// 		}
-	// 	}		
-
-	// 	// shot vs missile
-	// 	for (shot in shotGr) {
-	// 		for (missile in missileGr) {
-	// 			var sCol = shot.get('collider');
-	// 			var mCol = missile.get('collider');
-	// 			if (Collision.shapeWithShape (sCol.shape, mCol.shape) != null) {
-
-	// 				score += 1;
-	// 				updateScore();
-
-	// 			}
-	// 		}
-	// 	}
-
-	// 	// player vs enemy
-	// 	for (enemy in enemyGr) {
-	// 		var col = enemy.get('collider');
-	// 		if (Collision.shapeWithShape (p.collider.shape, col.shape) != null
-	// 		&& p.active) {
-	// 			explodeAt(enemy.pos);
-
-	// 			p.destroy();
-	// 			enemy.destroy();
-
-	// 			Luxe.events.fire('die!');
-	// 			explodeAt(enemy.pos);
-	// 		}
-	// 	}
-
-	// 	// player vs missile
-	// 	for (missile in missileGr) {
-	// 		var col = missile.get('collider');
-	// 		if (Collision.shapeWithShape (p.collider.shape, col.shape) != null
-	// 		&& p.active) {
-	// 			explodeAt(p.pos);
-
-	// 			p.destroy();
-	// 			missile.destroy();
-
-	// 			Luxe.events.fire('die!');
-	// 		}
-	// 	}
-	// }
-
 	function poolInit() {
 		pool_shot = new Pool<Shot>(C.pool_max_shot,
 			function(index, total):Shot {
 				var entity = new Shot(); 
-				// shot.init();
 				entity.active = false;
 				return entity;
 			},
@@ -255,7 +176,6 @@ class Play extends State {
 		pool_enemy = new Pool<Enemy>(C.pool_max_enemy,
 			function(index, total):Enemy {
 				var entity = new Enemy();
-				// enemy.init();
 				entity.active = false;
 				return entity;
 			},
@@ -299,7 +219,6 @@ class Play extends State {
 		var amt = Luxe.utils.random.int(C.exp_amt_min, C.exp_amt_max);
 
 		for (i in 0...amt) {
-			// var exp = new Explosion (X, Y);
 			var exp = pool_exp.get();
 			exp.reinit(X, Y);
 		}

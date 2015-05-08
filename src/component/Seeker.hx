@@ -42,7 +42,7 @@ class Seeker extends Component {
 
 	public function fire() {
 		if (entity.active) {
-		// var missile = new Missile(0, 500);
+			
 			var missile = Play.pool_missile.get();
 			missile.reinit();
 			missile.pos = new Vector(entity.pos.x, entity.pos.y);
@@ -57,12 +57,8 @@ class Seeker extends Component {
 				C.missile_speed * Math.sin(angle)
 			);
 
-			// missile.velocity.set(0, 700);
-
-			// missile.collider.shape.rotation = angle * 180 / Math.PI;
 			missile.collider.shape.rotation = Luxe.utils.random.float(0,360);
 			
-
 			// trace('seeker fired');
 		}
 	}

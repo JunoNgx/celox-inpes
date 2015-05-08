@@ -28,26 +28,10 @@ class Main extends luxe.Game {
 
 	override function config(config:luxe.AppConfig) {
 
-		// Preloading textures, optional
-		// config.preload.textures = [
-		// 	{id: 'assets/logo_box.png'},
-		// 	{id: 'assets/player.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest},
-		// 	{id: 'assets/shot.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest},
-		// 	{id: 'assets/enemy.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest},
-		// 	{id: 'assets/missile.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest},
-		// 	{id: 'assets/explosion.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest}
-		// ];
+		// Preloading resources
 
 		config.preload.fonts.push({ id:'assets/Muzarela.fnt'});
-		// config.preload.fonts.push({ id:'assets/Muzarela64.fnt'});
-
 		config.preload.textures.push({ id:'assets/cilogo.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
-		
-		// config.preload.textures.push({ id:'assets/player.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
-		// config.preload.textures.push({ id:'assets/shot.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
-		// config.preload.textures.push({ id:'assets/enemy.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
-		// config.preload.textures.push({ id:'assets/missile.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
-		// config.preload.textures.push({ id:'assets/explosion.png', filter_min:FilterType.nearest, filter_mag:FilterType.nearest });
 
         #if web
         	config.window.fullscreen = true;
@@ -73,10 +57,7 @@ class Main extends luxe.Game {
 
 		// Background color
 		// Luxe.renderer.clear_color = new Color().rgb(0xD7D7D7);
-		dFont = Luxe.resources.font('assets/Muzarela.fnt');
-		Luxe.audio.create('assets/DrumBass.ogg', 'bass');
-		Luxe.audio.create('assets/DrumSeq.ogg', 'music');
-
+		
 		// Draw line on horizontal borders
 		Luxe.draw.line({
 			p0: new Vector(0, 0),
@@ -90,8 +71,13 @@ class Main extends luxe.Game {
 			color: new Color(0.2, 0.2, 0.2, 1),
 		});
 
+		// Load the audio
 		Luxe.audio.create('assets/DrumBass.ogg', 'bass');
 		Luxe.audio.create('assets/DrumSeq.ogg', 'music');
+
+		dFont = Luxe.resources.font('assets/Muzarela.fnt');
+
+		// Actual codes that hide/show the cursor
 		Luxe.screen.cursor.visible = false;
 
 		// Create a state machine [...]
@@ -105,16 +91,4 @@ class Main extends luxe.Game {
 		// Set the inital state upon running the game
 		state.set(initialState);
 	}
-
-	// override function onrender() {
-	// 	// Luxe.draw.rectangle({
-	// 	// 	x: 0, y: 0,
-	// 	// 	w: Main.w,
-	// 	// 	h: Main.h,
-	// 	// 	color: new Color(0.2, 0.2, 0.2, 1),
-	// 	// 	// solid: true,
-	// 	// 	depth: -10,
-	// 	// });
-	// }
-
 }

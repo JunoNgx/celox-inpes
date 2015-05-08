@@ -22,12 +22,8 @@ class Title extends State {
 	override public function onenter<T>(_:T) {
 
 		titleText = new Sprite({
-			// text: 'Celox Inpes',
 			texture: Luxe.resources.texture('assets/cilogo.png'),
 			pos: new Vector ( Main.w * 0.5, Main.h * 0.3),
-			// point_size: 128,
-			// align: center,
-			// font: Main.dFont,
 		});
 
 		subText = new Text({

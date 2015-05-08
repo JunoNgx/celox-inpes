@@ -20,22 +20,16 @@ class Missile extends Entity {
 		super({
 			name: 'missile',
 			name_unique: true,
-			// size: new Vector(C.missile_radius * 2, C.missile_radius * 2),
-			// color: new Color().rgb(0x3FB8CD),
-			// texture: Luxe.resources.texture('assets/missile.png'),
 		});
 
 		velocity = new Velocity({
 			name: 'velocity',
-			// vx: veloX,
-			// vy: VeloY,
 		});
 		this.add(velocity);
 
 		collider = new Collider({
 			name: 'collider',
 			against: 'player',
-			// shape: Polygon.rectangle(pos.x, pos.y, C.missile_radius * 2, C.missile_radius * 2, true),
 			shape: Polygon.create(pos.x, pos.y, 3, C.missile_radius),
 		});
 		this.add(collider);
