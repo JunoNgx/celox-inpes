@@ -16,7 +16,7 @@ class Missile extends Entity {
 	public var collider: Collider;
 	public var velocity: Velocity;
 
-	override public function new(veloX: Float, VeloY: Float) {
+	override public function new() {
 		super({
 			name: 'missile',
 			name_unique: true,
@@ -27,8 +27,8 @@ class Missile extends Entity {
 
 		velocity = new Velocity({
 			name: 'velocity',
-			vx: veloX,
-			vy: VeloY,
+			// vx: veloX,
+			// vy: VeloY,
 		});
 		this.add(velocity);
 
@@ -47,6 +47,10 @@ class Missile extends Entity {
 		});
 	}
 
+	public function reinit() {
+		this.active = true;
+	}
+
 	override public function update(dt: Float) {
 
 		this.collider.shape.rotation += C.missile_rotateSpd * dt;
@@ -60,7 +64,7 @@ class Missile extends Entity {
 					y: this.pos.y,
 					// Note the negated value in rotation_z
 					angle: -this.collider.shape.rotation,
-					color: new Color().rgb(0xFC951E),
+					color: new Color().rgb(0x777777),
 				});
 		
 				Luxe.draw.ngon({
@@ -71,7 +75,7 @@ class Missile extends Entity {
 					y: this.pos.y,
 					angle: this.collider.shape.rotation,
 					solid: true,
-					color: new Color().rgb(0x66D9EF),
+					color: new Color().rgb(0xFFF381),
 				});
 		}
 	}

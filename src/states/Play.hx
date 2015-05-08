@@ -11,6 +11,8 @@ import luxe.Particles;
 
 import luxe.Entity;
 
+import luxe.structural.Pool;
+
 import entity.Player;
 import entity.Shot;
 import entity.Enemy;
@@ -25,7 +27,14 @@ class Play extends State {
 	var scoreText: Text;
 	public static var score: Int;
 	var loseStatus: Bool;
+
+	public static var pool_shot: Pool<Shot>;
+	public static var pool_enemy: Pool<Enemy>;
+	public static var pool_missile: Pool<Missile>;
+	public static var pool_exp: Pool<Explosion>;
+
 	var p: Player;
+
 	var debug: Text;
 
 	override public function new() {
@@ -50,7 +59,7 @@ class Play extends State {
 		for (i in 0...C.star_amt) {
 			var star = new Star();
 		}
-
+		poolInit();
 		p = new Player();
 
 		// mechanic
@@ -87,7 +96,7 @@ class Play extends State {
 			// + '\n' + Luxe.screen.w
 			// + '\n' + Luxe.screen.h;
 
-			debug.text = Std.string(p.active);
+			debug.text = Std.string(pool_enemy.length);
 		#end
 	}
 
@@ -124,6 +133,11 @@ class Play extends State {
 		Luxe.timer.reset();
 		Luxe.scene.empty();
 		Luxe.events.clear();
+
+		pool_shot = null;
+		pool_enemy = null;
+		pool_missile = null;
+		pool_exp = null;
 	} // onleave
 
 	override public function onmouseup(e: MouseEvent) {
@@ -228,18 +242,52 @@ class Play extends State {
 	// 	}
 	// }
 
+	function poolInit() {
+		pool_shot = new Pool<Shot>(C.pool_max_shot,
+			function(index, total):Shot {
+				var entity = new Shot(); 
+				// shot.init();
+				entity.active = false;
+				return entity;
+			},
+			true);
+
+		pool_enemy = new Pool<Enemy>(C.pool_max_enemy,
+			function(index, total):Enemy {
+				var entity = new Enemy();
+				// enemy.init();
+				entity.active = false;
+				return entity;
+			},
+			true);
+
+		pool_missile = new Pool<Missile>(C.pool_max_missile,
+			function(index, total):Missile {
+				var entity = new Missile();
+				entity.active = false;
+				return entity;
+			},
+			true);
+
+		pool_exp = new Pool<Explosion>(C.pool_max_exp,
+			function(index, total):Explosion {
+				var entity = new Explosion();
+				entity.active = false;
+				return entity;
+			},
+			true);
+	}
+
 	function SpawnOneWaveOfEnemies() {
-
 		var actual_amount = Math.ceil(C.wave_amt + Luxe.utils.random.float(-C.wave_amt_var, C.wave_amt_var));
-
-		for (i in 0...actual_amount) var enemy = new Enemy();
-
+		for (i in 0...actual_amount) {
+			var enemy = pool_enemy.get();
+			enemy.reinit();
+		}
 		Luxe.timer.schedule(
 			Luxe.utils.random.float(C.spawn_time1, C.spawn_time2),
 			SpawnOneWaveOfEnemies);
-
 		trace('spawned');
-
 	}
 
 	function updateScore() {
@@ -247,12 +295,13 @@ class Play extends State {
 	}
 
 	function explodeAt(X: Float, Y: Float) {
-
 		// Randomize
 		var amt = Luxe.utils.random.int(C.exp_amt_min, C.exp_amt_max);
 
 		for (i in 0...amt) {
-			var exp = new Explosion (X, Y);
+			// var exp = new Explosion (X, Y);
+			var exp = pool_exp.get();
+			exp.reinit(X, Y);
 		}
 		// Luxe.camera.shake(20);
 		Luxe.audio.play('bass');

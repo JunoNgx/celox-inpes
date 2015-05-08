@@ -28,14 +28,13 @@ class Enemy extends Entity {
 			// visible: false,
 			// size: new Vector( C.enemy_size, C.enemy_size ),
 			// color: new Color().rgb(0xFD971F),
-			pos: new Vector(Luxe.utils.random.float(0, Main.w),
-				Luxe.utils.random.float(C.spawn_area1, C.spawn_area2)),
+			// pos: new Vector(Luxe.utils.random.float(0, Main.w),
+			// 	Luxe.utils.random.float(C.spawn_area1, C.spawn_area2)),
 			// texture: Luxe.resources.texture('assets/enemy.png'),
 		});
 
 		velocity = new Velocity ({
 			name: 'velocity',
-			vy: C.enemy_speed + Luxe.utils.random.float(-C.enemy_speed_var, C.enemy_speed_var),
 		});
 		this.add(velocity);
 
@@ -55,15 +54,23 @@ class Enemy extends Entity {
 			top: -500, // dirty hack!!
 		}));
 
-		rotateSpd = Luxe.utils.random.float(-C.enemy_rotateSpd_var, C.enemy_rotateSpd_var);
-		seeker.reload();
-
 		this.events.listen('hit', function(e){
 			this.active = false;
 			Luxe.events.fire('explosion', {x: this.pos.x, y: this.pos.y});
 
 			Play.score += 50;
 		});
+	}
+
+	public function reinit() {
+		pos = new Vector(Luxe.utils.random.float(0, Main.w),
+				Luxe.utils.random.float(C.spawn_area1, C.spawn_area2));
+		rotateSpd = Luxe.utils.random.float(-C.enemy_rotateSpd_var, C.enemy_rotateSpd_var);
+		velocity.set(0,
+			C.enemy_speed + Luxe.utils.random.float(-C.enemy_speed_var, C.enemy_speed_var));
+
+		seeker.reload();
+		active = true;
 	}
 
 	// public function newSpeed(){
@@ -81,7 +88,7 @@ class Enemy extends Entity {
 				x: this.pos.x + C.enemy_radius * Math.cos(Math.PI /180 * this.collider.shape.rotation),
 				y: this.pos.y + C.enemy_radius * Math.sin(Math.PI /180 * this.collider.shape.rotation),
 				angle: -this.collider.shape.rotation,
-				color: new Color().rgb(0xFFFFFF),
+				color: new Color().rgb(0xECECEC),
 			});
 
 			Luxe.draw.ngon({
@@ -91,7 +98,7 @@ class Enemy extends Entity {
 				x: this.pos.x - C.enemy_radius * Math.cos(Math.PI /180 * this.collider.shape.rotation),
 				y: this.pos.y - C.enemy_radius * Math.sin(Math.PI /180 * this.collider.shape.rotation),
 				angle: -this.collider.shape.rotation,
-				color: new Color().rgb(0xFFFFFF),
+				color: new Color().rgb(0xECECEC),
 			});
 
 			Luxe.draw.ngon({

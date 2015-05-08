@@ -46,9 +46,9 @@ class Title extends State {
 		});
 
 #if mobile
-		touchText.text = ' click to start';
-#else
 		touchText.text = ' touch to start';
+#else
+		touchText.text = ' start to start';
 #end
 
 		bottomText = new Text({

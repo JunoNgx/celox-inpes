@@ -36,7 +36,7 @@ class KillBounds extends Component {
 		|| entity.pos.x < this.left
 		|| entity.pos.y > this.bottom
 		|| entity.pos.y < this.top ) {
-			entity.destroy();
+			entity.active = false;
 
 		}
 	}

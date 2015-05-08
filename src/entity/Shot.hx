@@ -16,12 +16,12 @@ class Shot extends Entity {
 	public var velocity: Velocity;
 	public var collider: Collider;
 	
-	override public function new (X: Float, Y: Float) {
+	override public function new () {
 		super({
 			name: 'shot',
 			name_unique: true,
 			// size: new Vector( C.shot_w, C.shot_h),
-			pos: new Vector(X, Y),
+			// pos: new Vector(X, Y),
 			// color: new Color(1, 0, 0, 1),
 			// texture: Luxe.resources.texture('assets/shot.png'),
 			});
@@ -48,6 +48,11 @@ class Shot extends Entity {
 		this.events.listen('hit', function(e){
 			this.active = false;
 		});
+	}
+
+	public function reinit(X: Float, Y: Float) {
+		this.pos = new Vector(X, Y);
+		this.active = true;
 	}
 
 	override public function update(dt: Float) {

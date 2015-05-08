@@ -101,7 +101,7 @@ class Player extends Entity {
 				y: this.pos.y - 14,
 				angle: 45,
 				solid: true,
-				color: new Color().rgb(0xFC951E),
+				color: new Color().rgb(0xA6E22E),
 			});
 
 			Luxe.draw.ngon({
@@ -112,7 +112,7 @@ class Player extends Entity {
 				y: this.pos.y - 14,
 				angle: 45,
 				solid: true,
-				color: new Color().rgb(0xFC951E),
+				color: new Color().rgb(0xA6E22E),
 			});
 		}
 	}

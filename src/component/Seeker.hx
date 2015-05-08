@@ -8,6 +8,7 @@ import luxe.Vector;
 
 import entity.Missile;
 
+import states.Play;
 import C;
 
 typedef PlayerPositionEvent = {
@@ -40,27 +41,30 @@ class Seeker extends Component {
 	}
 
 	public function fire() {
+		if (entity.active) {
+		// var missile = new Missile(0, 500);
+			var missile = Play.pool_missile.get();
+			missile.reinit();
+			missile.pos = new Vector(entity.pos.x, entity.pos.y);
 
-		var missile = new Missile(0, 500);
-		missile.pos = new Vector(entity.pos.x, entity.pos.y);
+			var angle = Math.atan2(
+				targetPos.y - this.pos.y,
+				targetPos.x - this.pos.x
+				);
 
-		var angle = Math.atan2(
-			targetPos.y - this.pos.y,
-			targetPos.x - this.pos.x
+			missile.velocity.set(
+				C.missile_speed * Math.cos(angle),
+				C.missile_speed * Math.sin(angle)
 			);
 
-		missile.velocity.set(
-			C.missile_speed * Math.cos(angle),
-			C.missile_speed * Math.sin(angle)
-		);
+			// missile.velocity.set(0, 700);
 
-		// missile.velocity.set(0, 700);
+			// missile.collider.shape.rotation = angle * 180 / Math.PI;
+			missile.collider.shape.rotation = Luxe.utils.random.float(0,360);
+			
 
-		// missile.collider.shape.rotation = angle * 180 / Math.PI;
-		missile.collider.shape.rotation = Luxe.utils.random.float(0,360);
-		
-
-		// trace('seeker fired');
+			// trace('seeker fired');
+		}
 	}
 
 }

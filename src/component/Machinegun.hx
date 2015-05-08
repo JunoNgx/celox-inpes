@@ -7,6 +7,7 @@ import luxe.Vector;
 
 import entity.Shot;
 
+import states.Play;
 import C;
 
 class Machinegun extends Component {
@@ -25,10 +26,14 @@ class Machinegun extends Component {
 
 	function fire() {
 		if (leftShot) {
-			var shot = new Shot(pos.x - 10, pos.y - 5);
+			// var shot = new Shot(pos.x - 10, pos.y - 5);
+			var shot = Play.pool_shot.get();
+			shot.reinit(pos.x - 10, pos.y - 5);
 			leftShot = false;
 		} else {
-			var shot = new Shot(pos.x + 10, pos.y - 5);
+			// var shot = new Shot(pos.x + 10, pos.y - 5);
+			var shot = Play.pool_shot.get();
+			shot.reinit(pos.x + 10, pos.y - 5);
 			leftShot = true;
 		}
 	} // fire

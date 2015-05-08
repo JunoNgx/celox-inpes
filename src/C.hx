@@ -54,7 +54,12 @@ class C {
 	public static var spawn_area2:Float = -20;
 
 	public static var wave_amt: Int = 7;
-	public static var wave_amt_var: Int = 4;
+	public static var wave_amt_var: Int = 2;
+
+	public static var pool_max_shot: Int = 24;
+	public static var pool_max_enemy: Int = 24;
+	public static var pool_max_missile: Int = 12;
+	public static var pool_max_exp: Int = 24;
 
 	public static var killbounds_horizontal: Int = 50;
 	public static var killbounds_vertical: Int = 50;
